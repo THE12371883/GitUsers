@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3527398E261B16BF00BFABFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3527398D261B16BF00BFABFC /* AppDelegate.swift */; };
-		35273990261B16BF00BFABFC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3527398F261B16BF00BFABFC /* SceneDelegate.swift */; };
 		35273992261B16BF00BFABFC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35273991261B16BF00BFABFC /* ViewController.swift */; };
 		35273995261B16BF00BFABFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35273993261B16BF00BFABFC /* Main.storyboard */; };
 		35273997261B16C200BFABFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35273996261B16C200BFABFC /* Assets.xcassets */; };
@@ -427,7 +426,6 @@
 			files = (
 				35273992261B16BF00BFABFC /* ViewController.swift in Sources */,
 				3527398E261B16BF00BFABFC /* AppDelegate.swift in Sources */,
-				35273990261B16BF00BFABFC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,6 +604,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = GitUsers/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -613,7 +612,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.teravat.GitUsers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -625,6 +624,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = GitUsers/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -632,7 +632,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.teravat.GitUsers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
