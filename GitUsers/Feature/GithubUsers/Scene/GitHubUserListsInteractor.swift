@@ -31,5 +31,7 @@ struct GitHubUserListsInteractor {
 // MARK: - IGitHubUserListsInteractor
 
 extension GitHubUserListsInteractor: IGitHubUserListsInteractor {
-	
+	func getUsers(request: GetGitHubUsers.Request) {
+		
+	}
 }
