@@ -12,6 +12,7 @@ protocol IGitHubUserListsModel {
 	var loginName: String? { get }
 	var avartarUrlString: String? { get }
 	var gitHubUrlString: String? { get }
+	var favoriteStatus: Bool? { get set }
 }
 
 struct GitHubUserListsModel: IGitHubUserListsModel {
@@ -19,11 +20,13 @@ struct GitHubUserListsModel: IGitHubUserListsModel {
 	var loginName: String?
 	var avartarUrlString: String?
 	var gitHubUrlString: String?
+	var favoriteStatus: Bool?
 	
 	init(item: IGithubUserDatas) {
 		self.id = item.id
 		self.loginName = item.loginName
 		self.avartarUrlString = item.avartarUrlString
 		self.gitHubUrlString = item.gitHubUrlString
+		self.favoriteStatus = false
 	}
 }

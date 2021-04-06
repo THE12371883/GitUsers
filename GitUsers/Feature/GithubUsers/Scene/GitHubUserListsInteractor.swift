@@ -14,6 +14,7 @@ import UIKit
 
 protocol IGitHubUserListsInteractor {
 	func getUsers(request: GetGitHubUsers.Request)
+	func setFavoriteUser(request: SetFavoriteUser.Request)
 }
 
 struct GitHubUserListsInteractor {
@@ -39,6 +40,12 @@ extension GitHubUserListsInteractor: IGitHubUserListsInteractor {
 			case .failure(let error):
 				self.presenter.present(error: error)
 			}
+		}
+	}
+	
+	func setFavoriteUser(request: SetFavoriteUser.Request) {
+		worker.setFavoriteUser(with: request.id) {
+			self.presenter.present(setFavorite: SetFavoriteUser.Response(index: request.index, isFavorite: request.isFavorite))
 		}
 	}
 }

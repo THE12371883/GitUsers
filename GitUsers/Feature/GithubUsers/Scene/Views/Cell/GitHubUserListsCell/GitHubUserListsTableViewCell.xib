@@ -25,7 +25,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dU3-Hf-XUJ">
-                        <rect key="frame" x="104" y="5" width="279" height="21"/>
+                        <rect key="frame" x="104" y="5" width="279" height="20.5"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -36,6 +36,15 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cdV-mZ-tzQ">
+                        <rect key="frame" x="353" y="58" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="JOa-Ot-a1B"/>
+                            <constraint firstAttribute="width" constant="30" id="jL2-MK-s6X"/>
+                        </constraints>
+                        <state key="normal" title="Button" image="fav_inactive"/>
+                        <state key="selected" image="fav_active"/>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="YWp-Zg-V75" firstAttribute="leading" secondItem="F29-7m-kud" secondAttribute="trailing" constant="8" id="1jd-qU-Rlr"/>
@@ -43,7 +52,9 @@
                     <constraint firstItem="YWp-Zg-V75" firstAttribute="top" secondItem="dU3-Hf-XUJ" secondAttribute="bottom" constant="8.5" id="BIs-kW-mZ2"/>
                     <constraint firstItem="dU3-Hf-XUJ" firstAttribute="leading" secondItem="F29-7m-kud" secondAttribute="trailing" constant="8" id="Cnn-YF-i7i"/>
                     <constraint firstItem="dU3-Hf-XUJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="P3F-4d-Ye7"/>
+                    <constraint firstAttribute="bottom" secondItem="cdV-mZ-tzQ" secondAttribute="bottom" constant="11" id="RXH-Si-IdU"/>
                     <constraint firstAttribute="trailing" secondItem="YWp-Zg-V75" secondAttribute="trailing" constant="20" symbolic="YES" id="Vzn-0c-9be"/>
+                    <constraint firstAttribute="trailing" secondItem="cdV-mZ-tzQ" secondAttribute="trailing" constant="20" id="ftx-QG-WhQ"/>
                     <constraint firstItem="F29-7m-kud" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="uLs-ZN-z6T"/>
                     <constraint firstAttribute="trailing" secondItem="dU3-Hf-XUJ" secondAttribute="trailing" constant="20" symbolic="YES" id="xjF-hf-OkO"/>
                 </constraints>
@@ -53,8 +64,13 @@
                 <outlet property="cellGithubUrl" destination="YWp-Zg-V75" id="Wy6-Sr-9aR"/>
                 <outlet property="cellImage" destination="F29-7m-kud" id="c5S-Op-ks2"/>
                 <outlet property="cellName" destination="dU3-Hf-XUJ" id="nvE-yE-Cu7"/>
+                <outlet property="favoriteButton" destination="cdV-mZ-tzQ" id="GwZ-HS-K90"/>
             </connections>
             <point key="canvasLocation" x="200.72463768115944" y="122.87946428571428"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="fav_active" width="85" height="85"/>
+        <image name="fav_inactive" width="85" height="85"/>
+    </resources>
 </document>

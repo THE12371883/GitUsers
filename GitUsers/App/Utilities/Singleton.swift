@@ -12,11 +12,13 @@ class Singleton {
 	
 	let networkingService: INetworkingService!
 	let githubAPIService: IGitHubAPIService!
+	let realmService: IRealmService!
 	
 	init() {
 		networkingService = NetworkingService(contentTypeHeader: .normal)
 		githubAPIService = GitHubAPIService(client: networkingService,
 											resourceAdapter: GitHubResourceResponseAdapter(),
 											config: ConfigurationProvider.default)
+		realmService = RealmService()
 	}
 }

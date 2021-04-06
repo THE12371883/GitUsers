@@ -21,6 +21,7 @@ private enum Constants {
 protocol GitHubUserListsDisplayLogic: class {
 	func show(users viewModel: GetGitHubUsers.ViewModel)
 	func show(error: ErrorViewModel)
+	func show(setFavorite viewModel: SetFavoriteUser.ViewModel)
 }
 
 class GitHubUserListsViewController: UIViewController {
@@ -90,8 +91,9 @@ private extension GitHubUserListsViewController {
 	
 	func setup() {
 		let viewController = self
+		let inMemoryStore = GitHubUserListsInMemoryStore()
 		let presenter = GitHubUserListsPresenter(viewController: viewController)
-		let worker = GitHubUserListsWorker(githubAPIService: Singleton.shared.githubAPIService)
+		let worker = GitHubUserListsWorker(githubAPIService: Singleton.shared.githubAPIService, reamlService: Singleton.shared.realmService, inMemoryStore: inMemoryStore)
 		let interactor = GitHubUserListsInteractor(presenter: presenter, worker: worker)
 		let router = GitHubUserListsRouter()
 		viewController.interactor = interactor
@@ -110,9 +112,7 @@ private extension GitHubUserListsViewController {
 		tableView.register(UINib(nibName: Constants.cellNibName, bundle: Bundle.main), forCellReuseIdentifier: Constants.cellIdentifier)
 		tableView.delegate = self
 		tableView.dataSource = self
-		tableView.estimatedRowHeight = Constants.heightForRow
 		tableView.tableFooterView = UIView()
-		tableView.rowHeight = UITableView.automaticDimension
 		tableView.layoutIfNeeded()
 	}
 	
@@ -138,6 +138,10 @@ extension GitHubUserListsViewController: GitHubUserListsDisplayLogic {
 		alert.addAction(alertAction)
 		present(alert, animated: true, completion: nil)
 	}
+	
+	func show(setFavorite viewModel: SetFavoriteUser.ViewModel) {
+		models?.githubUsersViewModel[viewModel.index].isFavoriteUser = viewModel.isFavorite
+	}
 }
 
 // MARK: - UITableViewDelegate & UITableViewDataSource
@@ -159,8 +163,9 @@ extension GitHubUserListsViewController: UITableViewDelegate, UITableViewDataSou
 		}
 		
 		let item = data[indexPath.row]
-		let cellModel = GitHubUserListsCellModel(item: item)
+		let cellModel = GitHubUserListsCellModel(item: item, rowIndex: indexPath.row)
 		cell.viewModel = cellModel
+		cell.delegate = self
 		
 		return cell
 	}
@@ -172,6 +177,14 @@ extension GitHubUserListsViewController: UITableViewDelegate, UITableViewDataSou
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 		
+	}
+}
+
+// MARK: - Action
+
+extension GitHubUserListsViewController: IGitHubUserListsCellDelegate {
+	func didSelectCell(userId: Int, isSelected: Bool, index: Int) {
+		interactor.setFavoriteUser(request: SetFavoriteUser.Request(id: userId, index: index, isFavorite: isSelected))
 	}
 }
 

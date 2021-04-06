@@ -14,6 +14,7 @@ import UIKit
 
 protocol IGitHubUserListsPresenter {
 	func present(users response: GetGitHubUsers.Response)
+	func present(setFavorite response: SetFavoriteUser.Response)
 	func present(error: Error)
 }
 
@@ -33,6 +34,10 @@ extension GitHubUserListsPresenter: IGitHubUserListsPresenter {
 	func present(users response: GetGitHubUsers.Response) {
 		let viewModel = response.githubUsersModel.compactMap { GitHubUserListsViewModel(item: $0) }
 		viewController?.show(users: GetGitHubUsers.ViewModel(githubUsersViewModel: viewModel))
+	}
+	
+	func present(setFavorite response: SetFavoriteUser.Response) {
+		viewController?.show(setFavorite: SetFavoriteUser.ViewModel(index: response.index, isFavorite: response.isFavorite))
 	}
 	
 	func present(error: Error) {
