@@ -31,6 +31,7 @@ class GitHubUserListsViewController: UIViewController {
 	
 	// MARK: - IBOutlets
 	@IBOutlet weak var tableView: UITableView!
+	var refreshControl = UIRefreshControl()
 	
 	// MARK: - Variable
 	var models: GetGitHubUsers.ViewModel?
@@ -98,16 +99,21 @@ private extension GitHubUserListsViewController {
 	}
 	
 	func setupUI() {
+		view.layoutIfNeeded()
 		
 	}
 	
 	func setupTableView() {
+		refreshControl.addTarget(self, action: #selector(self.refreshData), for: .valueChanged)
+		tableView.refreshControl = refreshControl
+		
 		tableView.register(UINib(nibName: Constants.cellNibName, bundle: Bundle.main), forCellReuseIdentifier: Constants.cellIdentifier)
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.estimatedRowHeight = Constants.heightForRow
 		tableView.tableFooterView = UIView()
 		tableView.rowHeight = UITableView.automaticDimension
+		tableView.layoutIfNeeded()
 	}
 	
 	func getGithubUsers() {
@@ -121,6 +127,7 @@ extension GitHubUserListsViewController: GitHubUserListsDisplayLogic {
 	func show(users viewModel: GetGitHubUsers.ViewModel) {
 		models = viewModel
 		tableView.reloadData()
+		refreshControl.endRefreshing()
 	}
 	
 	func show(error: ErrorViewModel) {
@@ -163,6 +170,16 @@ extension GitHubUserListsViewController: UITableViewDelegate, UITableViewDataSou
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
 		
+	}
+}
+
+// MARK: - Action
+
+extension GitHubUserListsViewController {
+	@objc
+	func refreshData() {
+		interactor.getUsers(request: GetGitHubUsers.Request())
 	}
 }
