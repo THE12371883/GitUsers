@@ -13,10 +13,10 @@ enum GetGitHubUsers {
 	}
 	
 	struct Response {
-	
+		var githubUsersModel: [IGitHubUserListsModel]
 	}
 	
 	struct ViewModel {
-		
+		var githubUsersViewModel: [IGitHubUserListsViewModel]
 	}
 }

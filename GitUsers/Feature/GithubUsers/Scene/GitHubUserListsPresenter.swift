@@ -14,6 +14,7 @@ import UIKit
 
 protocol IGitHubUserListsPresenter {
 	func present(users response: GetGitHubUsers.Response)
+	func present(error: Error)
 }
 
 struct GitHubUserListsPresenter {
@@ -30,6 +31,11 @@ struct GitHubUserListsPresenter {
 
 extension GitHubUserListsPresenter: IGitHubUserListsPresenter {
 	func present(users response: GetGitHubUsers.Response) {
+		let viewModel = response.githubUsersModel.compactMap { GitHubUserListsViewModel(item: $0) }
+		viewController?.show(users: GetGitHubUsers.ViewModel(githubUsersViewModel: viewModel))
+	}
+	
+	func present(error: Error) {
 		
 	}
 }

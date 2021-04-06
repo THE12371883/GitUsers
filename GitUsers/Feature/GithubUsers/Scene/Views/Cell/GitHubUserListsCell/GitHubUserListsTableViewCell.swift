@@ -8,16 +8,39 @@
 import UIKit
 
 class GitHubUserListsTableViewCell: UITableViewCell {
+	
+	@IBOutlet weak var cellImage: UIImageView!
+	@IBOutlet weak var cellName: UILabel!
+	@IBOutlet weak var cellGithubUrl: UILabel!
+	
+	// MARK: - ViewModel
+	var viewModel: GitHubUserListsCellModel? { didSet { reloadData() } }
+	
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		// Initialization code
+		
+		setupCell()
 		
 	}
 	
 	override func setSelected(_ selected: Bool, animated: Bool) {
 		super.setSelected(selected, animated: animated)
+		selectionStyle = .gray
 		
-		// Configure the view for the selected state
-		
+	}
+	
+}
+
+// MARK: - Private GitHubUserListsTableViewCell
+
+private extension GitHubUserListsTableViewCell {
+	
+	func setupCell() {
+
+	}
+
+	func reloadData() {
+		cellName.text = viewModel?.gitHubUserName
+		cellGithubUrl.text = viewModel?.gitHubURLString
 	}
 }

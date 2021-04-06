@@ -31,6 +31,9 @@ class GitHubUserListsViewController: UIViewController {
 	// MARK: - IBOutlets
 	@IBOutlet weak var tableView: UITableView!
 	
+	// MARK: - Variable
+	var models: GetGitHubUsers.ViewModel?
+	
 	// MARK: - Lifecycle
 	deinit {
 		print("deinit \("GitHubUserLists")ViewController")
@@ -45,10 +48,23 @@ class GitHubUserListsViewController: UIViewController {
 		return UIViewController()
 	}
 	
+	// MARK: - Object lifecycle
+	
+	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+		setup()
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+		setup()
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupUI()
 		setupTableView()
+		getGithubUsers()
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.title = "GitHubUserLists"
@@ -73,7 +89,7 @@ private extension GitHubUserListsViewController {
 	func setup() {
 		let viewController = self
 		let presenter = GitHubUserListsPresenter(viewController: viewController)
-		let worker = GitHubUserListsWorker()
+		let worker = GitHubUserListsWorker(githubAPIService: Singleton.shared.githubAPIService)
 		let interactor = GitHubUserListsInteractor(presenter: presenter, worker: worker)
 		let router = GitHubUserListsRouter()
 		viewController.interactor = interactor
@@ -93,13 +109,17 @@ private extension GitHubUserListsViewController {
 		tableView.rowHeight = UITableView.automaticDimension
 	}
 	
+	func getGithubUsers() {
+		interactor.getUsers(request: GetGitHubUsers.Request())
+	}
 }
 
 // MARK: - GitHubUserListsDisplayLogic
 
 extension GitHubUserListsViewController: GitHubUserListsDisplayLogic {
 	func show(users viewModel: GetGitHubUsers.ViewModel) {
-		
+		models = viewModel
+		tableView.reloadData()
 	}
 }
 
@@ -107,11 +127,23 @@ extension GitHubUserListsViewController: GitHubUserListsDisplayLogic {
 
 extension GitHubUserListsViewController: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 0
+		guard let data = models?.githubUsersViewModel else {
+			return 0
+		}
+		
+		return data.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! GitHubUserListsTableViewCell
+		
+		guard let data = models?.githubUsersViewModel else {
+			return UITableViewCell()
+		}
+		
+		let item = data[indexPath.row]
+		let cellModel = GitHubUserListsCellModel(item: item)
+		cell.viewModel = cellModel
 		
 		return cell
 	}

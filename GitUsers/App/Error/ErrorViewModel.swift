@@ -43,4 +43,3 @@ public struct ErrorViewModel {
 		self.message = message
 	}
 }
-

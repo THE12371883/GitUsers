@@ -9,6 +9,12 @@ import UIKit
 
 struct GitHubUserListsCellModel {
 	var gitHubUserName: String?
-	var gitHubURL: String?
+	var gitHubURLString: String?
 	var gitHubImageUrl: URL?
+	
+	init(item: IGitHubUserListsViewModel) {
+		self.gitHubUserName = item.loginName
+		self.gitHubURLString = item.gitHubUrlString
+		self.gitHubImageUrl = item.avartarUrl
+	}
 }

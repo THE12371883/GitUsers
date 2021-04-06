@@ -1,29 +1,29 @@
 //
-//  GitHubUsersModel.swift
+//  GitHubUserListsViewModel.swift
 //  GitUsers
 //
 //  Created by Teravat Nepiyachat on 6/4/2564 BE.
 //
 
-import Foundation
+import UIKit
 
-protocol IGitHubUserListsModel {
+protocol IGitHubUserListsViewModel {
 	var id: Int? { get }
 	var loginName: String? { get }
-	var avartarUrlString: String? { get }
+	var avartarUrl: URL? { get }
 	var gitHubUrlString: String? { get }
 }
 
-struct GitHubUserListsModel: IGitHubUserListsModel {
+struct GitHubUserListsViewModel: IGitHubUserListsViewModel {
 	var id: Int?
 	var loginName: String?
-	var avartarUrlString: String?
+	var avartarUrl: URL?
 	var gitHubUrlString: String?
 	
-	init(item: IGithubUserDatas) {
+	init(item: IGitHubUserListsModel) {
 		self.id = item.id
 		self.loginName = item.loginName
-		self.avartarUrlString = item.avartarUrlString
+		self.avartarUrl = URL(string: item.avartarUrlString ?? "")
 		self.gitHubUrlString = item.gitHubUrlString
 	}
 }

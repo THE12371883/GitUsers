@@ -32,6 +32,13 @@ struct GitHubUserListsInteractor {
 
 extension GitHubUserListsInteractor: IGitHubUserListsInteractor {
 	func getUsers(request: GetGitHubUsers.Request) {
-		
+		worker.getGitHubUsers { response in
+			switch response {
+			case .success(let datas):
+				self.presenter.present(users: GetGitHubUsers.Response(githubUsersModel: datas))
+			case .failure(let error):
+				self.presenter.present(error: error)
+			}
+		}
 	}
 }

@@ -17,13 +17,24 @@ protocol IGitHubUserListsWorker {
 }
 
 class GitHubUserListsWorker {
+	let githubAPIService: IGitHubAPIService
 	
+	init(githubAPIService: IGitHubAPIService) {
+		self.githubAPIService = githubAPIService
+	}
 }
 
 // MARK: - IGitHubUserListsWorker
 
 extension GitHubUserListsWorker: IGitHubUserListsWorker {
 	func getGitHubUsers(completion: @escaping (Result<[IGitHubUserListsModel], Error>) -> Void) {
-		
+		githubAPIService.getGitHubUsers { result in
+			switch result {
+			case .success(let datas):
+				completion(.success(datas))
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
 	}
 }
