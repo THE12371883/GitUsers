@@ -13,7 +13,7 @@
 import UIKit
 
 protocol IGitHubUserListsPresenter {
-	
+	func present(users response: GetGitHubUsers.Response)
 }
 
 struct GitHubUserListsPresenter {
@@ -29,5 +29,7 @@ struct GitHubUserListsPresenter {
 // MARK: - IGitHubUserListsPresenter
 
 extension GitHubUserListsPresenter: IGitHubUserListsPresenter {
-	
+	func present(users response: GetGitHubUsers.Response) {
+		
+	}
 }

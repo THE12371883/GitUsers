@@ -12,8 +12,14 @@
 
 import UIKit
 
+private enum Constants {
+	static let cellIdentifier: String = "cellGitHubUser"
+	static let cellNibName: String = "GitHubUserListsTableViewCell"
+	static let heightForRow: CGFloat = 100.0
+}
+
 protocol GitHubUserListsDisplayLogic: class {
-	
+	func show(users viewModel: GetGitHubUsers.ViewModel)
 }
 
 class GitHubUserListsViewController: UIViewController {
@@ -23,6 +29,7 @@ class GitHubUserListsViewController: UIViewController {
 	var router: IGitHubUserListsRouter!
 	
 	// MARK: - IBOutlets
+	@IBOutlet weak var tableView: UITableView!
 	
 	// MARK: - Lifecycle
 	deinit {
@@ -40,8 +47,11 @@ class GitHubUserListsViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = "GitHubUserLists"
 		setupUI()
+		setupTableView()
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationItem.largeTitleDisplayMode = .always
+		navigationItem.title = "GitHubUserLists"
 		setNeedsStatusBarAppearanceUpdate()
 	}
 	
@@ -74,10 +84,43 @@ private extension GitHubUserListsViewController {
 		
 	}
 	
+	func setupTableView() {
+		tableView.register(UINib(nibName: Constants.cellNibName, bundle: Bundle.main), forCellReuseIdentifier: Constants.cellIdentifier)
+		tableView.delegate = self
+		tableView.dataSource = self
+		tableView.estimatedRowHeight = Constants.heightForRow
+		tableView.tableFooterView = UIView()
+		tableView.rowHeight = UITableView.automaticDimension
+	}
+	
 }
 
 // MARK: - GitHubUserListsDisplayLogic
 
 extension GitHubUserListsViewController: GitHubUserListsDisplayLogic {
+	func show(users viewModel: GetGitHubUsers.ViewModel) {
+		
+	}
+}
+
+// MARK: - UITableViewDelegate & UITableViewDataSource
+
+extension GitHubUserListsViewController: UITableViewDelegate, UITableViewDataSource {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return 0
+	}
 	
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! GitHubUserListsTableViewCell
+		
+		return cell
+	}
+	
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return Constants.heightForRow
+	}
+	
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		
+	}
 }

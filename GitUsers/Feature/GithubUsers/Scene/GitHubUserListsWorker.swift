@@ -13,7 +13,7 @@
 import UIKit
 
 protocol IGitHubUserListsWorker {
-	
+	func getGitHubUsers(completion: @escaping (Result<[IGitHubUserListsModel], Error>) -> Void)
 }
 
 class GitHubUserListsWorker {
@@ -23,5 +23,7 @@ class GitHubUserListsWorker {
 // MARK: - IGitHubUserListsWorker
 
 extension GitHubUserListsWorker: IGitHubUserListsWorker {
-	
+	func getGitHubUsers(completion: @escaping (Result<[IGitHubUserListsModel], Error>) -> Void) {
+		
+	}
 }

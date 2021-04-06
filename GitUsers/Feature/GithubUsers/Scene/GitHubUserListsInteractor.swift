@@ -13,7 +13,7 @@
 import UIKit
 
 protocol IGitHubUserListsInteractor {
-	
+	func getUsers(request: GetGitHubUsers.Request)
 }
 
 struct GitHubUserListsInteractor {
