@@ -14,12 +14,17 @@ def utilities
   pod 'RealmSwift'
 end
 
+def ui
+	pod 'Kingfisher', '~> 6.0.0'
+end
+
 def xctools
   pod 'SwiftLint'
 end
 
 target 'GitUsers' do
 
+	ui
   utilities
   network
 
