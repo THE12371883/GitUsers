@@ -13,7 +13,7 @@ protocol IGitHubResourceResponseAdapter {
 }
 
 protocol IGitHubResourceResponseErrorResourceAdapter {
-	func githubServiceError(errorData: JSON, completion: @escaping (ServerResponseError) -> Void)
+	func githubServiceError(completion: @escaping (ServerResponseError) -> Void)
 }
 
 struct GitHubResourceResponseAdapter { }
@@ -25,5 +25,14 @@ extension GitHubResourceResponseAdapter: IGitHubResourceResponseAdapter {
 		let datas = data.arrayValue.compactMap { GithubUserDatas(json: $0) }
 		let models = datas.compactMap { GitHubUserListsModel(item: $0) }
 		completion(models)
+	}
+}
+
+// MARK: - IGitHubResourceResponseErrorResourceAdapter
+
+extension GitHubResourceResponseAdapter: IGitHubResourceResponseErrorResourceAdapter {
+	func githubServiceError(completion: @escaping (ServerResponseError) -> Void) {
+		let serverError = ServerResponseError(message: "Sorry, Something went wrong!\nPlease try again", name: "Message", status: nil)
+		completion(serverError)
 	}
 }

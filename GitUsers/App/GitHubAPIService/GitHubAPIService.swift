@@ -14,7 +14,7 @@ protocol IGitHubAPIService {
 
 struct GitHubAPIService {
 	let client: INetworkingService!
-	let resourceAdapter: IGitHubResourceResponseAdapter!
+	let resourceAdapter: IGitHubResourceResponseAdapter & IGitHubResourceResponseErrorResourceAdapter
 	let config: ConfigurationProvider!
 }
 
@@ -29,8 +29,10 @@ extension GitHubAPIService: IGitHubAPIService {
 				resourceAdapter.getGithubUsers(data: resource) { response in
 					completion(.success(response))
 				}
-			case .failure(let error):
-				completion(.failure(error))
+			case .failure:
+				resourceAdapter.githubServiceError { error in
+					completion(.failure(error))
+				}
 			}
 		}
 	}

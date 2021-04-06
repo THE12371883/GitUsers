@@ -19,7 +19,7 @@ enum ConfigurationProvider: IConfigurationProvider {
 	}
 	
 	enum APIPaths {
-		static let githubUser = "/users"
+		static let githubUser = "/users4"
 	}
 	
 	var githubUserURL: String {

@@ -42,5 +42,11 @@ private extension GitHubUserListsTableViewCell {
 	func reloadData() {
 		cellName.text = viewModel?.gitHubUserName
 		cellGithubUrl.text = viewModel?.gitHubURLString
+		
+		guard let imageUrl = viewModel?.gitHubImageUrl else {
+			cellImage.image = UIImage()
+			return
+		}
+		cellImage.load(url: imageUrl)
 	}
 }

@@ -36,6 +36,11 @@ extension GitHubUserListsPresenter: IGitHubUserListsPresenter {
 	}
 	
 	func present(error: Error) {
+		if let serverError = error as? ServerResponseError {
+			viewController?.show(error: ErrorViewModel(serverError.name, message: serverError.message))
+		} else {
+			viewController?.show(error: ErrorViewModel("Message", message: error.localizedDescription))
+		}
 		
 	}
 }

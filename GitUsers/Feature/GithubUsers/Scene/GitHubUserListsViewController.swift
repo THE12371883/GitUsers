@@ -20,6 +20,7 @@ private enum Constants {
 
 protocol GitHubUserListsDisplayLogic: class {
 	func show(users viewModel: GetGitHubUsers.ViewModel)
+	func show(error: ErrorViewModel)
 }
 
 class GitHubUserListsViewController: UIViewController {
@@ -120,6 +121,15 @@ extension GitHubUserListsViewController: GitHubUserListsDisplayLogic {
 	func show(users viewModel: GetGitHubUsers.ViewModel) {
 		models = viewModel
 		tableView.reloadData()
+	}
+	
+	func show(error: ErrorViewModel) {
+		let alert = UIAlertController(title: error.title, message: error.message, preferredStyle: .alert)
+		let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
+			alert.dismiss(animated: true, completion: nil)
+		}
+		alert.addAction(alertAction)
+		present(alert, animated: true, completion: nil)
 	}
 }
 
