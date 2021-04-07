@@ -9,6 +9,7 @@ import UIKit
 
 protocol IConfigurationProvider {
 	var githubUserURL: String { get }
+	var githubUserRepositoriesURL: String { get }
 }
 
 enum ConfigurationProvider: IConfigurationProvider {
@@ -20,9 +21,14 @@ enum ConfigurationProvider: IConfigurationProvider {
 	
 	enum APIPaths {
 		static let githubUser = "/users"
+		static let githubRepositories = "/users/{username}/repos"
 	}
 	
 	var githubUserURL: String {
 		return APIUrl.url + APIPaths.githubUser
+	}
+	
+	var githubUserRepositoriesURL: String {
+		return APIUrl.url + APIPaths.githubRepositories
 	}
 }

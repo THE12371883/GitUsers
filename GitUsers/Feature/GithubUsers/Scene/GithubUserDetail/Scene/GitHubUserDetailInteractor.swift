@@ -14,6 +14,7 @@ import UIKit
 
 protocol IGitHubUserDetailInteractor {
 	func getUserProfile(request: GetUserProfile.Request)
+	func getUserRepositories(request: GetGitHubUserRepos.Request)
 }
 
 struct GitHubUserDetailInteractor {
@@ -34,6 +35,17 @@ extension GitHubUserDetailInteractor: IGitHubUserDetailInteractor {
 	func getUserProfile(request: GetUserProfile.Request) {
 		worker.getUserProfile { result in
 			self.presenter.present(userProfile: GetUserProfile.Response(gitHubUserModel: result))
+		}
+	}
+	
+	func getUserRepositories(request: GetGitHubUserRepos.Request) {
+		worker.getUserRepositories { result in
+			switch result {
+			case .success(let response):
+				self.presenter.present(repositories: GetGitHubUserRepos.Response(gitHubUserReposModel: response))
+			case .failure(let error):
+				self.presenter.present(error: error)
+			}
 		}
 	}
 }

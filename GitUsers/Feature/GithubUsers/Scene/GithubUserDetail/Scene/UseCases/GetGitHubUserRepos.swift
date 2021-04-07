@@ -13,10 +13,10 @@ enum GetGitHubUserRepos {
 	}
 	
 	struct Response {
-		
+		var gitHubUserReposModel: [IGithubRepositoriesModel]
 	}
 	
 	struct ViewModel {
-		
+		var gitHubUserReposViewModel: [IGithubUserRepositoriesViewModel]
 	}
 }

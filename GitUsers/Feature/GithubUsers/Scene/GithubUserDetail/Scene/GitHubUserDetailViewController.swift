@@ -36,6 +36,9 @@ class GitHubUserDetailViewController: UIViewController {
 	@IBOutlet weak var githubUrlLabel: UILabel!
 	@IBOutlet weak var tableView: UITableView!
 	
+	// MARK: - Variable
+	var models: GetGitHubUserRepos.ViewModel?
+	
 	// MARK: - Lifecycle
 	deinit {
 		print("deinit \("GitHubUserDetail")ViewController")
@@ -57,10 +60,11 @@ class GitHubUserDetailViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = "GitHubUserDetail"
+		title = "Repositories"
 		setupUI()
-		getUserProfile()
 		setupTableView()
+		getUserProfile()
+		getUserRepositories()
 		setNeedsStatusBarAppearanceUpdate()
 	}
 	
@@ -112,6 +116,10 @@ private extension GitHubUserDetailViewController {
 	func getUserProfile() {
 		interactor.getUserProfile(request: GetUserProfile.Request())
 	}
+	
+	func getUserRepositories() {
+		interactor.getUserRepositories(request: GetGitHubUserRepos.Request())
+	}
 }
 
 // MARK: - GitHubUserDetailDisplayLogic
@@ -129,11 +137,17 @@ extension GitHubUserDetailViewController: GitHubUserDetailDisplayLogic {
 	}
 	
 	func show(repositories viewModel: GetGitHubUserRepos.ViewModel) {
-		
+		models = viewModel
+		tableView.reloadData()
 	}
 	
 	func show(error: ErrorViewModel) {
-		
+		let alert = UIAlertController(title: error.title, message: error.message, preferredStyle: .alert)
+		let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
+			alert.dismiss(animated: true, completion: nil)
+		}
+		alert.addAction(alertAction)
+		present(alert, animated: true, completion: nil)
 	}
 }
 
@@ -141,20 +155,23 @@ extension GitHubUserDetailViewController: GitHubUserDetailDisplayLogic {
 
 extension GitHubUserDetailViewController: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 10
+		guard let data = models?.gitHubUserReposViewModel else {
+			return 0
+		}
+		
+		return data.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! GitHubUserReposTableViewCell
 		
-//		guard let data = models?.githubUsersViewModel else {
-//			return UITableViewCell()
-//		}
-//
-//		let item = data[indexPath.row]
-//		let cellModel = GitHubUserListsCellModel(item: item, rowIndex: indexPath.row)
-//		cell.viewModel = cellModel
-//		cell.delegate = self
+		guard let data = models?.gitHubUserReposViewModel else {
+			return UITableViewCell()
+		}
+
+		let item = data[indexPath.row]
+		let cellModel = GitHubUserReposCellModel(item: item)
+		cell.viewModel = cellModel
 		
 		return cell
 	}
@@ -165,6 +182,5 @@ extension GitHubUserDetailViewController: UITableViewDelegate, UITableViewDataSo
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		
 	}
 }

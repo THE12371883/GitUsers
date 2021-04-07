@@ -13,7 +13,9 @@
 import UIKit
 
 protocol IGitHubUserDetailPresenter {
-	func present(userProfile: GetUserProfile.Response)
+	func present(userProfile response: GetUserProfile.Response)
+	func present(repositories response: GetGitHubUserRepos.Response)
+	func present(error: Error)
 }
 
 struct GitHubUserDetailPresenter {
@@ -29,8 +31,21 @@ struct GitHubUserDetailPresenter {
 // MARK: - IGitHubUserDetailPresenter
 
 extension GitHubUserDetailPresenter: IGitHubUserDetailPresenter {
-	func present(userProfile: GetUserProfile.Response) {
-		let viewModel = GithubUserProfileViewModel(item: userProfile.gitHubUserModel)
+	func present(userProfile response: GetUserProfile.Response) {
+		let viewModel = GithubUserProfileViewModel(item: response.gitHubUserModel)
 		viewController?.show(profile: GetUserProfile.ViewModel(gitHubUserProfileViewModel: viewModel))
+	}
+	
+	func present(repositories response: GetGitHubUserRepos.Response) {
+		let viewModel = response.gitHubUserReposModel.compactMap { GithubUserRepositoriesViewModel(item: $0) }
+		viewController?.show(repositories: GetGitHubUserRepos.ViewModel(gitHubUserReposViewModel: viewModel))
+	}
+	
+	func present(error: Error) {
+		if let serverError = error as? ServerResponseError {
+			viewController?.show(error: ErrorViewModel(serverError.name, message: serverError.message))
+		} else {
+			viewController?.show(error: ErrorViewModel("Message", message: error.localizedDescription))
+		}
 	}
 }

@@ -15,9 +15,8 @@ class GitHubUserReposTableViewCell: UITableViewCell {
 	@IBOutlet weak var cellForkCount: UILabel!
 	@IBOutlet weak var cellReposLastUpdated: UILabel!
 	
-	
 	// MARK: - ViewModel
-	var viewModel: GitHubUserListsCellModel? { didSet { reloadData() } }
+	var viewModel: GitHubUserReposCellModel? { didSet { reloadData() } }
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
@@ -36,5 +35,10 @@ class GitHubUserReposTableViewCell: UITableViewCell {
 private extension GitHubUserReposTableViewCell {
 
 	func reloadData() {
+		cellReposNameLabel.text = viewModel?.reposName
+		cellReposDescriptionLabel.text = viewModel?.reposDescription
+		cellStarCount.text = viewModel?.reposStarCount
+		cellForkCount.text = viewModel?.reposForkCount
+		cellReposLastUpdated.text = viewModel?.reposLastUpdated
 	}
 }

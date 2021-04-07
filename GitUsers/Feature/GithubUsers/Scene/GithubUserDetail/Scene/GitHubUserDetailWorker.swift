@@ -14,6 +14,7 @@ import UIKit
 
 protocol IGitHubUserDetailWorker {
 	func getUserProfile(completion: @escaping (IGitHubUserListsModel) -> Void)
+	func getUserRepositories(completion: @escaping (Result<[IGithubRepositoriesModel], Error>) -> Void)
 }
 
 class GitHubUserDetailWorker {
@@ -35,5 +36,21 @@ extension GitHubUserDetailWorker: IGitHubUserDetailWorker {
 			return
 		}
 		completion(gitHubUserModel)
+	}
+	
+	func getUserRepositories(completion: @escaping (Result<[IGithubRepositoriesModel], Error>) -> Void) {
+		guard let userName = inMemoryStore.gitHubUserModel?.loginName else {
+			completion(.success([]))
+			return
+		}
+		
+		gitHubAPIService.getGitHubUserRepositories(with: userName) { result in
+			switch result {
+			case .success(let response):
+				completion(.success(response))
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
 	}
 }
