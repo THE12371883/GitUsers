@@ -15,6 +15,7 @@ import UIKit
 protocol IGitHubUserListsInteractor {
 	func getUsers(request: GetGitHubUsers.Request)
 	func setFavoriteUser(request: SetFavoriteUser.Request)
+	func selectedGithubUser(request: SelectedGitHubUser.Request)
 }
 
 struct GitHubUserListsInteractor {
@@ -46,6 +47,12 @@ extension GitHubUserListsInteractor: IGitHubUserListsInteractor {
 	func setFavoriteUser(request: SetFavoriteUser.Request) {
 		worker.setFavoriteUser(with: request.id) {
 			self.presenter.present(setFavorite: SetFavoriteUser.Response(index: request.index, isFavorite: request.isFavorite))
+		}
+	}
+	
+	func selectedGithubUser(request: SelectedGitHubUser.Request) {
+		worker.getGithubUserDetail(at: request.index) { result in
+			self.presenter.present(userDetail: SelectedGitHubUser.Response(githubUserModel: result))
 		}
 	}
 }

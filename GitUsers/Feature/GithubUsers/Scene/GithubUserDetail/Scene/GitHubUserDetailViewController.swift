@@ -12,8 +12,16 @@
 
 import UIKit
 
+private enum Constants {
+	static let cellIdentifier: String = "cellRepository"
+	static let cellNibName: String = "GitHubUserReposTableViewCell"
+	static let heightForRow: CGFloat = 100.0
+}
+
 protocol GitHubUserDetailDisplayLogic: class {
-	
+	func show(profile viewModel: GetUserProfile.ViewModel)
+	func show(repositories viewModel: GetGitHubUserRepos.ViewModel)
+	func show(error: ErrorViewModel)
 }
 
 class GitHubUserDetailViewController: UIViewController {
@@ -23,6 +31,10 @@ class GitHubUserDetailViewController: UIViewController {
 	var router: IGitHubUserDetailRouter!
 	
 	// MARK: - IBOutlets
+	@IBOutlet weak var imageView: UIImageView!
+	@IBOutlet weak var nameLabel: UILabel!
+	@IBOutlet weak var githubUrlLabel: UILabel!
+	@IBOutlet weak var tableView: UITableView!
 	
 	// MARK: - Lifecycle
 	deinit {
@@ -32,6 +44,11 @@ class GitHubUserDetailViewController: UIViewController {
 	class func newInstance(parameters: [String: Any]?) -> UIViewController {
 		let storyboard = UIStoryboard(name: "GitHubUserDetail", bundle: nil)
 		if let viewController = storyboard.instantiateViewController(withIdentifier: "GitHubUserDetailViewController") as? GitHubUserDetailViewController {
+			
+			guard parameters?["userModel"] != nil else {
+				return UIViewController()
+			}
+			
 			viewController.setup(parameters: parameters)
 			return viewController
 		}
@@ -42,6 +59,8 @@ class GitHubUserDetailViewController: UIViewController {
 		super.viewDidLoad()
 		title = "GitHubUserDetail"
 		setupUI()
+		getUserProfile()
+		setupTableView()
 		setNeedsStatusBarAppearanceUpdate()
 	}
 	
@@ -62,8 +81,12 @@ private extension GitHubUserDetailViewController {
 	
 	func setup(parameters: [String: Any]?) {
 		let viewController = self
+		let inMemoryStore = GitHubUserDetailInMemoryStore()
+		if let gitHubUserModel = parameters?["userModel"] as? GitHubUserListsModel {
+			inMemoryStore.gitHubUserModel = gitHubUserModel
+		}
 		let presenter = GitHubUserDetailPresenter(viewController: viewController)
-		let worker = GitHubUserDetailWorker()
+		let worker = GitHubUserDetailWorker(inMemoryStore: inMemoryStore, gitHubAPIService: Singleton.shared.githubAPIService)
 		let interactor = GitHubUserDetailInteractor(presenter: presenter, worker: worker)
 		let router = GitHubUserDetailRouter()
 		viewController.interactor = interactor
@@ -74,10 +97,74 @@ private extension GitHubUserDetailViewController {
 		
 	}
 	
+	func setupTableView() {
+//		refreshControl.addTarget(self, action: #selector(self.refreshData), for: .valueChanged)
+//		tableView.refreshControl = refreshControl
+//		
+		tableView.register(UINib(nibName: Constants.cellNibName, bundle: Bundle.main), forCellReuseIdentifier: Constants.cellIdentifier)
+		tableView.delegate = self
+		tableView.dataSource = self
+		tableView.estimatedRowHeight = Constants.heightForRow
+		tableView.tableFooterView = UIView()
+		tableView.layoutIfNeeded()
+	}
+	
+	func getUserProfile() {
+		interactor.getUserProfile(request: GetUserProfile.Request())
+	}
 }
 
 // MARK: - GitHubUserDetailDisplayLogic
 
 extension GitHubUserDetailViewController: GitHubUserDetailDisplayLogic {
+	func show(profile viewModel: GetUserProfile.ViewModel) {
+		nameLabel.text = viewModel.gitHubUserProfileViewModel.loginName
+		githubUrlLabel.text = viewModel.gitHubUserProfileViewModel.gitHubUrlString
+		
+		guard let url = viewModel.gitHubUserProfileViewModel.avartarUrl else {
+			imageView.image = UIImage()
+			return
+		}
+		imageView.load(url: url)
+	}
 	
+	func show(repositories viewModel: GetGitHubUserRepos.ViewModel) {
+		
+	}
+	
+	func show(error: ErrorViewModel) {
+		
+	}
+}
+
+// MARK: - UITableViewDelegate & UITableViewDataSource
+
+extension GitHubUserDetailViewController: UITableViewDelegate, UITableViewDataSource {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return 10
+	}
+	
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! GitHubUserReposTableViewCell
+		
+//		guard let data = models?.githubUsersViewModel else {
+//			return UITableViewCell()
+//		}
+//
+//		let item = data[indexPath.row]
+//		let cellModel = GitHubUserListsCellModel(item: item, rowIndex: indexPath.row)
+//		cell.viewModel = cellModel
+//		cell.delegate = self
+		
+		return cell
+	}
+	
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return UITableView.automaticDimension
+	}
+	
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+		
+	}
 }

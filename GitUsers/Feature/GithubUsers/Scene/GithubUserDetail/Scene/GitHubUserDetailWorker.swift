@@ -13,15 +13,27 @@
 import UIKit
 
 protocol IGitHubUserDetailWorker {
-	
+	func getUserProfile(completion: @escaping (IGitHubUserListsModel) -> Void)
 }
 
 class GitHubUserDetailWorker {
+	let gitHubAPIService: IGitHubAPIService
+	var inMemoryStore: IGitHubUserDetailInMemoryStore
 	
+	init(inMemoryStore: IGitHubUserDetailInMemoryStore,
+		 gitHubAPIService: IGitHubAPIService) {
+		self.inMemoryStore = inMemoryStore
+		self.gitHubAPIService = gitHubAPIService
+	}
 }
 
 // MARK: - IGitHubUserDetailWorker
 
 extension GitHubUserDetailWorker: IGitHubUserDetailWorker {
-	
+	func getUserProfile(completion: @escaping (IGitHubUserListsModel) -> Void) {
+		guard let gitHubUserModel = inMemoryStore.gitHubUserModel else {
+			return
+		}
+		completion(gitHubUserModel)
+	}
 }

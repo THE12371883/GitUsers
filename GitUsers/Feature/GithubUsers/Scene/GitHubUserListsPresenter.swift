@@ -16,6 +16,7 @@ protocol IGitHubUserListsPresenter {
 	func present(users response: GetGitHubUsers.Response)
 	func present(setFavorite response: SetFavoriteUser.Response)
 	func present(error: Error)
+	func present(userDetail response: SelectedGitHubUser.Response)
 }
 
 struct GitHubUserListsPresenter {
@@ -47,5 +48,9 @@ extension GitHubUserListsPresenter: IGitHubUserListsPresenter {
 			viewController?.show(error: ErrorViewModel("Message", message: error.localizedDescription))
 		}
 		
+	}
+	
+	func present(userDetail response: SelectedGitHubUser.Response) {
+		viewController?.show(userDetail: SelectedGitHubUser.ViewModel(githubUserModel: response.githubUserModel))
 	}
 }

@@ -13,7 +13,7 @@
 import UIKit
 
 protocol IGitHubUserDetailPresenter {
-	
+	func present(userProfile: GetUserProfile.Response)
 }
 
 struct GitHubUserDetailPresenter {
@@ -29,5 +29,8 @@ struct GitHubUserDetailPresenter {
 // MARK: - IGitHubUserDetailPresenter
 
 extension GitHubUserDetailPresenter: IGitHubUserDetailPresenter {
-	
+	func present(userProfile: GetUserProfile.Response) {
+		let viewModel = GithubUserProfileViewModel(item: userProfile.gitHubUserModel)
+		viewController?.show(profile: GetUserProfile.ViewModel(gitHubUserProfileViewModel: viewModel))
+	}
 }

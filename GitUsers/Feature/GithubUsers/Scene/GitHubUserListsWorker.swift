@@ -15,6 +15,7 @@ import UIKit
 protocol IGitHubUserListsWorker {
 	func getGitHubUsers(completion: @escaping (Result<[IGitHubUserListsModel], Error>) -> Void)
 	func setFavoriteUser(with id: Int, completion: @escaping () -> Void)
+	func getGithubUserDetail(at index: Int, completion: @escaping (IGitHubUserListsModel) -> Void)
 	func favoriteUserStatus() -> [IGitHubUserListsModel]
 }
 
@@ -62,5 +63,9 @@ extension GitHubUserListsWorker: IGitHubUserListsWorker {
 		}
 		
 		return inMemoryStore.gitHubUserListsModel
+	}
+	
+	func getGithubUserDetail(at index: Int, completion: @escaping (IGitHubUserListsModel) -> Void) {
+		completion(inMemoryStore.gitHubUserListsModel[index])
 	}
 }

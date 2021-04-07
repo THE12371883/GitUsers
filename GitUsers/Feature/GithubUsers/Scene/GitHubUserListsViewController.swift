@@ -22,6 +22,7 @@ protocol GitHubUserListsDisplayLogic: class {
 	func show(users viewModel: GetGitHubUsers.ViewModel)
 	func show(error: ErrorViewModel)
 	func show(setFavorite viewModel: SetFavoriteUser.ViewModel)
+	func show(userDetail viewModel: SelectedGitHubUser.ViewModel)
 }
 
 class GitHubUserListsViewController: UIViewController {
@@ -142,6 +143,10 @@ extension GitHubUserListsViewController: GitHubUserListsDisplayLogic {
 	func show(setFavorite viewModel: SetFavoriteUser.ViewModel) {
 		models?.githubUsersViewModel[viewModel.index].isFavoriteUser = viewModel.isFavorite
 	}
+	
+	func show(userDetail viewModel: SelectedGitHubUser.ViewModel) {
+		router.goToDetail(from: self, gitUserModel: viewModel.githubUserModel)
+	}
 }
 
 // MARK: - UITableViewDelegate & UITableViewDataSource
@@ -176,7 +181,7 @@ extension GitHubUserListsViewController: UITableViewDelegate, UITableViewDataSou
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		
+		interactor.selectedGithubUser(request: SelectedGitHubUser.Request(index: indexPath.row))
 	}
 }
 

@@ -46,6 +46,14 @@
 		35273ABF261D53E900BFABFC /* GitHubUserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35273AB9261D53E900BFABFC /* GitHubUserDetailViewController.swift */; };
 		35273AC0261D53E900BFABFC /* GitHubUserDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35273ABA261D53E900BFABFC /* GitHubUserDetailInteractor.swift */; };
 		35273AC8261D541300BFABFC /* GitHubUserDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35273AC7261D541300BFABFC /* GitHubUserDetail.storyboard */; };
+		35273AD0261D54D000BFABFC /* GetGitHubUserRepos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35273ACF261D54D000BFABFC /* GetGitHubUserRepos.swift */; };
+		35273AD5261D577C00BFABFC /* GitHubUserDetailInMemoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35273AD4261D577C00BFABFC /* GitHubUserDetailInMemoryStore.swift */; };
+		35273ADD261D5A0200BFABFC /* GetUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35273ADC261D5A0200BFABFC /* GetUserProfile.swift */; };
+		35273AE6261D5BD600BFABFC /* GitHubUserReposTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35273AE4261D5BD600BFABFC /* GitHubUserReposTableViewCell.swift */; };
+		35273AE7261D5BD600BFABFC /* GitHubUserReposTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35273AE5261D5BD600BFABFC /* GitHubUserReposTableViewCell.xib */; };
+		35273AEF261D5BF500BFABFC /* GitHubUserReposCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35273AEE261D5BF500BFABFC /* GitHubUserReposCellModel.swift */; };
+		35273AF7261D62E100BFABFC /* GithubUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35273AF6261D62E100BFABFC /* GithubUserProfileViewModel.swift */; };
+		35273AFC261D771100BFABFC /* SelectedGitHubUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35273AFB261D771100BFABFC /* SelectedGitHubUser.swift */; };
 		3F62C9859FAE3CCC38A99375 /* Pods_GitUsers_GitUsersUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A55C9CB1B73311E578F3074B /* Pods_GitUsers_GitUsersUITests.framework */; };
 		A89437A9FD3D437E933B6C0B /* Pods_GitUsers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 459F00E68DFD86F9658736E6 /* Pods_GitUsers.framework */; };
 		A93B7C8D53E504948017119C /* Pods_GitUsersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FCD5699724AA015D463E27 /* Pods_GitUsersTests.framework */; };
@@ -115,6 +123,14 @@
 		35273AB9261D53E900BFABFC /* GitHubUserDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubUserDetailViewController.swift; sourceTree = "<group>"; };
 		35273ABA261D53E900BFABFC /* GitHubUserDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubUserDetailInteractor.swift; sourceTree = "<group>"; };
 		35273AC7261D541300BFABFC /* GitHubUserDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GitHubUserDetail.storyboard; sourceTree = "<group>"; };
+		35273ACF261D54D000BFABFC /* GetGitHubUserRepos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetGitHubUserRepos.swift; sourceTree = "<group>"; };
+		35273AD4261D577C00BFABFC /* GitHubUserDetailInMemoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubUserDetailInMemoryStore.swift; sourceTree = "<group>"; };
+		35273ADC261D5A0200BFABFC /* GetUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserProfile.swift; sourceTree = "<group>"; };
+		35273AE4261D5BD600BFABFC /* GitHubUserReposTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubUserReposTableViewCell.swift; sourceTree = "<group>"; };
+		35273AE5261D5BD600BFABFC /* GitHubUserReposTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GitHubUserReposTableViewCell.xib; sourceTree = "<group>"; };
+		35273AEE261D5BF500BFABFC /* GitHubUserReposCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubUserReposCellModel.swift; sourceTree = "<group>"; };
+		35273AF6261D62E100BFABFC /* GithubUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubUserProfileViewModel.swift; sourceTree = "<group>"; };
+		35273AFB261D771100BFABFC /* SelectedGitHubUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedGitHubUser.swift; sourceTree = "<group>"; };
 		3C6127CA9DA5843A5BD273E7 /* Pods-GitUsers-GitUsersUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitUsers-GitUsersUITests.debug.xcconfig"; path = "Target Support Files/Pods-GitUsers-GitUsersUITests/Pods-GitUsers-GitUsersUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3D389FB6B636C2D328260F49 /* Pods-GitUsersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitUsersTests.debug.xcconfig"; path = "Target Support Files/Pods-GitUsersTests/Pods-GitUsersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		459F00E68DFD86F9658736E6 /* Pods_GitUsers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitUsers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -267,6 +283,7 @@
 			children = (
 				35273A1B261C150500BFABFC /* GetGitHubUsers.swift */,
 				35273AA8261C577700BFABFC /* SetFavoriteUser.swift */,
+				35273AFB261D771100BFABFC /* SelectedGitHubUser.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -390,6 +407,7 @@
 				35273AB8261D53E900BFABFC /* GitHubUserDetailRouter.swift */,
 				35273AB9261D53E900BFABFC /* GitHubUserDetailViewController.swift */,
 				35273ABA261D53E900BFABFC /* GitHubUserDetailInteractor.swift */,
+				35273AD4261D577C00BFABFC /* GitHubUserDetailInMemoryStore.swift */,
 				35273AC7261D541300BFABFC /* GitHubUserDetail.storyboard */,
 			);
 			path = Scene;
@@ -405,6 +423,8 @@
 		35273AC5261D53FD00BFABFC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				35273AE2261D5AD800BFABFC /* Model */,
+				35273AE1261D5AD200BFABFC /* Cell */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -412,8 +432,36 @@
 		35273AC6261D540200BFABFC /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				35273ACF261D54D000BFABFC /* GetGitHubUserRepos.swift */,
+				35273ADC261D5A0200BFABFC /* GetUserProfile.swift */,
 			);
 			path = UseCases;
+			sourceTree = "<group>";
+		};
+		35273AE1261D5AD200BFABFC /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				35273AE3261D5BB300BFABFC /* GitHubUserReposCell */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		35273AE2261D5AD800BFABFC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				35273AF6261D62E100BFABFC /* GithubUserProfileViewModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		35273AE3261D5BB300BFABFC /* GitHubUserReposCell */ = {
+			isa = PBXGroup;
+			children = (
+				35273AEE261D5BF500BFABFC /* GitHubUserReposCellModel.swift */,
+				35273AE4261D5BD600BFABFC /* GitHubUserReposTableViewCell.swift */,
+				35273AE5261D5BD600BFABFC /* GitHubUserReposTableViewCell.xib */,
+			);
+			path = GitHubUserReposCell;
 			sourceTree = "<group>";
 		};
 		602B2CEEEA3C72D2FC822906 /* Frameworks */ = {
@@ -550,6 +598,7 @@
 			files = (
 				3527399A261B16C200BFABFC /* LaunchScreen.storyboard in Resources */,
 				35273997261B16C200BFABFC /* Assets.xcassets in Resources */,
+				35273AE7261D5BD600BFABFC /* GitHubUserReposTableViewCell.xib in Resources */,
 				35273A0A261B265100BFABFC /* GitHubUserListsTableViewCell.xib in Resources */,
 				352739F9261B233000BFABFC /* GitHubUserLists.storyboard in Resources */,
 				35273AC8261D541300BFABFC /* GitHubUserDetail.storyboard in Resources */,
@@ -698,8 +747,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35273ADD261D5A0200BFABFC /* GetUserProfile.swift in Sources */,
 				35273A7D261C386000BFABFC /* Extension.swift in Sources */,
 				352739ED261B22FD00BFABFC /* GitHubUserListsViewController.swift in Sources */,
+				35273AD5261D577C00BFABFC /* GitHubUserDetailInMemoryStore.swift in Sources */,
 				35273ABF261D53E900BFABFC /* GitHubUserDetailViewController.swift in Sources */,
 				352739E9261B22FD00BFABFC /* GitHubUserListsPresenter.swift in Sources */,
 				35273AA0261C463C00BFABFC /* GitHubUserListsInMemoryStore.swift in Sources */,
@@ -711,14 +762,19 @@
 				35273A4A261C1D3900BFABFC /* ServerResponseError.swift in Sources */,
 				35273A90261C40EC00BFABFC /* RealmService.swift in Sources */,
 				35273A3B261C1AFC00BFABFC /* HTTPResponseCode.swift in Sources */,
+				35273AE6261D5BD600BFABFC /* GitHubUserReposTableViewCell.swift in Sources */,
+				35273AEF261D5BF500BFABFC /* GitHubUserReposCellModel.swift in Sources */,
 				35273AA9261C577700BFABFC /* SetFavoriteUser.swift in Sources */,
 				35273A45261C1BC800BFABFC /* ContentType.swift in Sources */,
 				35273A10261C07B500BFABFC /* GitHubUserListsCellModel.swift in Sources */,
+				35273AFC261D771100BFABFC /* SelectedGitHubUser.swift in Sources */,
 				352739EA261B22FD00BFABFC /* GitHubUserListsWorker.swift in Sources */,
 				35273A50261C1D6600BFABFC /* ErrorViewModel.swift in Sources */,
 				352739EC261B22FD00BFABFC /* GitHubUserListsRouter.swift in Sources */,
 				35273ABE261D53E900BFABFC /* GitHubUserDetailRouter.swift in Sources */,
 				35273A2A261C1A1F00BFABFC /* Singleton.swift in Sources */,
+				35273AD0261D54D000BFABFC /* GetGitHubUserRepos.swift in Sources */,
+				35273AF7261D62E100BFABFC /* GithubUserProfileViewModel.swift in Sources */,
 				35273A1C261C150500BFABFC /* GetGitHubUsers.swift in Sources */,
 				35273AC0261D53E900BFABFC /* GitHubUserDetailInteractor.swift in Sources */,
 				35273A78261C341600BFABFC /* GitHubUserListsViewModel.swift in Sources */,

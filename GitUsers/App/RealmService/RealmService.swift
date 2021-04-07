@@ -37,7 +37,11 @@ extension RealmService: IRealmService {
 		let predicate = NSPredicate(format: "id = %d", id)
 		
 		if let result = realm?.objects(FavoriteUser.self).filter(predicate).first {
+			realm?.beginWrite()
+			
 			realm?.delete(result)
+			
+			try? realm?.commitWrite()
 			completion()
 		} else {
 			realm?.beginWrite()

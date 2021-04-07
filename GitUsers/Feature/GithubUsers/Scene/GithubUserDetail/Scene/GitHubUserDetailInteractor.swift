@@ -13,7 +13,7 @@
 import UIKit
 
 protocol IGitHubUserDetailInteractor {
-	
+	func getUserProfile(request: GetUserProfile.Request)
 }
 
 struct GitHubUserDetailInteractor {
@@ -31,5 +31,9 @@ struct GitHubUserDetailInteractor {
 // MARK: - IGitHubUserDetailInteractor
 
 extension GitHubUserDetailInteractor: IGitHubUserDetailInteractor {
-	
+	func getUserProfile(request: GetUserProfile.Request) {
+		worker.getUserProfile { result in
+			self.presenter.present(userProfile: GetUserProfile.Response(gitHubUserModel: result))
+		}
+	}
 }

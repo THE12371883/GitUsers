@@ -12,17 +12,74 @@
         <!--Git Hub User Detail View Controller-->
         <scene sceneID="fcG-U5-ye7">
             <objects>
-                <viewController id="u1h-ge-tzR" customClass="GitHubUserDetailViewController" customModule="GitUsers" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GitHubUserDetailViewController" id="u1h-ge-tzR" customClass="GitHubUserDetailViewController" customModule="GitUsers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qPt-NN-WcP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CUU-Mw-FCJ">
+                                <rect key="frame" x="0.0" y="44" width="414" height="135"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hpG-BF-Ear">
+                                        <rect key="frame" x="8" y="17.5" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="OMM-Pj-cFX"/>
+                                            <constraint firstAttribute="width" secondItem="hpG-BF-Ear" secondAttribute="height" multiplier="1:1" id="yst-OW-KFC"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rNH-vB-5Nh">
+                                        <rect key="frame" x="116" y="17" width="290" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gid-Iy-fo0">
+                                        <rect key="frame" x="116" y="45.5" width="290" height="14.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="rNH-vB-5Nh" firstAttribute="leading" secondItem="hpG-BF-Ear" secondAttribute="trailing" constant="8" symbolic="YES" id="1Au-vM-TAT"/>
+                                    <constraint firstItem="gid-Iy-fo0" firstAttribute="top" secondItem="rNH-vB-5Nh" secondAttribute="bottom" constant="8" symbolic="YES" id="8mP-KV-0fp"/>
+                                    <constraint firstItem="gid-Iy-fo0" firstAttribute="leading" secondItem="hpG-BF-Ear" secondAttribute="trailing" constant="8" symbolic="YES" id="BjN-G9-co7"/>
+                                    <constraint firstAttribute="trailing" secondItem="rNH-vB-5Nh" secondAttribute="trailing" constant="8" id="GlC-g0-lv3"/>
+                                    <constraint firstItem="rNH-vB-5Nh" firstAttribute="top" secondItem="CUU-Mw-FCJ" secondAttribute="top" constant="17" id="XyR-Rh-o2r"/>
+                                    <constraint firstAttribute="height" constant="135" id="mHu-AX-L4j"/>
+                                    <constraint firstAttribute="trailing" secondItem="gid-Iy-fo0" secondAttribute="trailing" constant="8" id="oYg-9W-dhE"/>
+                                    <constraint firstItem="hpG-BF-Ear" firstAttribute="centerY" secondItem="CUU-Mw-FCJ" secondAttribute="centerY" id="t4r-xQ-o1t"/>
+                                    <constraint firstItem="hpG-BF-Ear" firstAttribute="leading" secondItem="CUU-Mw-FCJ" secondAttribute="leading" constant="8" id="tps-eC-pEs"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="02b-mw-CpT">
+                                <rect key="frame" x="0.0" y="179" width="414" height="683"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="UfW-rU-8Z9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="02b-mw-CpT" firstAttribute="top" secondItem="CUU-Mw-FCJ" secondAttribute="bottom" id="1ax-PO-saV"/>
+                            <constraint firstItem="CUU-Mw-FCJ" firstAttribute="leading" secondItem="UfW-rU-8Z9" secondAttribute="leading" id="7Xm-Eh-Scw"/>
+                            <constraint firstItem="CUU-Mw-FCJ" firstAttribute="trailing" secondItem="UfW-rU-8Z9" secondAttribute="trailing" id="AnA-YS-gFa"/>
+                            <constraint firstItem="02b-mw-CpT" firstAttribute="bottom" secondItem="UfW-rU-8Z9" secondAttribute="bottom" id="McJ-mn-5dH"/>
+                            <constraint firstItem="02b-mw-CpT" firstAttribute="leading" secondItem="UfW-rU-8Z9" secondAttribute="leading" id="O8V-LI-aJY"/>
+                            <constraint firstItem="CUU-Mw-FCJ" firstAttribute="top" secondItem="UfW-rU-8Z9" secondAttribute="top" id="PM0-Ad-iap"/>
+                            <constraint firstItem="02b-mw-CpT" firstAttribute="trailing" secondItem="UfW-rU-8Z9" secondAttribute="trailing" id="TkB-Te-ubB"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="githubUrlLabel" destination="gid-Iy-fo0" id="Arv-zh-2Fu"/>
+                        <outlet property="imageView" destination="hpG-BF-Ear" id="d9u-Sr-raj"/>
+                        <outlet property="nameLabel" destination="rNH-vB-5Nh" id="g12-qV-EYi"/>
+                        <outlet property="tableView" destination="02b-mw-CpT" id="psK-Cb-JrR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fMS-D4-IaB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-312" y="102"/>
+            <point key="canvasLocation" x="-313.04347826086956" y="101.78571428571428"/>
         </scene>
     </scenes>
     <resources>

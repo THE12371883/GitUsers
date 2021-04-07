@@ -13,15 +13,17 @@
 import UIKit
 
 protocol IGitHubUserListsRouter {
-	
+	func goToDetail(from viewController: UIViewController, gitUserModel: IGitHubUserListsModel)
 }
 
-struct GitHubUserListsRouter {
-	
-}
+struct GitHubUserListsRouter { }
 
 // MARK: - IGitHubUserListsRouter
 
 extension GitHubUserListsRouter: IGitHubUserListsRouter {
-	
+	func goToDetail(from viewController: UIViewController, gitUserModel: IGitHubUserListsModel) {
+		if let gitHubUserDetailViewController = GitHubUserDetailViewController.newInstance(parameters: ["userModel": gitUserModel]) as? GitHubUserDetailViewController {
+			viewController.navigationController?.pushViewController(gitHubUserDetailViewController, animated: true)
+		}
+	}
 }
