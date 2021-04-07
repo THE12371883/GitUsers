@@ -17,6 +17,7 @@ protocol IGitHubUserListsWorker {
 	func setFavoriteUser(with id: Int, completion: @escaping () -> Void)
 	func getGithubUserDetail(at index: Int, completion: @escaping (IGitHubUserListsModel) -> Void)
 	func favoriteUserStatus() -> [IGitHubUserListsModel]
+	func setFavoriteFilter(isActive: Bool, completion: @escaping ([IGitHubUserListsModel]) -> Void)
 }
 
 class GitHubUserListsWorker {
@@ -67,5 +68,14 @@ extension GitHubUserListsWorker: IGitHubUserListsWorker {
 	
 	func getGithubUserDetail(at index: Int, completion: @escaping (IGitHubUserListsModel) -> Void) {
 		completion(inMemoryStore.gitHubUserListsModel[index])
+	}
+	
+	func setFavoriteFilter(isActive: Bool, completion: @escaping ([IGitHubUserListsModel]) -> Void) {
+		if isActive {
+			let data = inMemoryStore.gitHubUserListsModel.filter { $0.favoriteStatus == isActive }
+			completion(data)
+		} else {
+			completion(inMemoryStore.gitHubUserListsModel)
+		}
 	}
 }

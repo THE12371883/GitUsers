@@ -56,6 +56,11 @@ extension SearchAndFilterView {
 		favoriteFilterButton.addTarget(self, action: #selector(self.favoriteFilterButtonDidTapped(sender:)), for: .touchUpInside)
 		sortByButton.addTarget(self, action: #selector(self.sortByButtonDidTapped(sender:)), for: .touchUpInside)
 	}
+	
+	func resetFilter() {
+		favoriteFilterButton.isSelected = false
+		sortByButton.isSelected = false
+	}
 }
 
 // MARK: - Action

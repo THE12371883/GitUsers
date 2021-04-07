@@ -16,6 +16,7 @@ protocol IGitHubUserListsInteractor {
 	func getUsers(request: GetGitHubUsers.Request)
 	func setFavoriteUser(request: SetFavoriteUser.Request)
 	func selectedGithubUser(request: SelectedGitHubUser.Request)
+	func selectedFavoriteFilter(request: SelectedFavoriteFilter.Request)
 }
 
 struct GitHubUserListsInteractor {
@@ -55,6 +56,12 @@ extension GitHubUserListsInteractor: IGitHubUserListsInteractor {
 	func selectedGithubUser(request: SelectedGitHubUser.Request) {
 		worker.getGithubUserDetail(at: request.index) { result in
 			self.presenter.present(userDetail: SelectedGitHubUser.Response(githubUserModel: result))
+		}
+	}
+	
+	func selectedFavoriteFilter(request: SelectedFavoriteFilter.Request) {
+		worker.setFavoriteFilter(isActive: request.isActive) { result in
+			self.presenter.present(favoriteFilter: SelectedFavoriteFilter.Response(githubUsersModel: result))
 		}
 	}
 }

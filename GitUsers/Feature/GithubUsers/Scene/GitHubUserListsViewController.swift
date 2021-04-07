@@ -24,6 +24,7 @@ protocol GitHubUserListsDisplayLogic: class {
 	func show(setFavorite viewModel: SetFavoriteUser.ViewModel)
 	func show(userDetail viewModel: SelectedGitHubUser.ViewModel)
 	func show(loadingView viewModel: ShowLoading.ViewModel)
+	func show(favoriteFilterActive viewModel: SelectedFavoriteFilter.ViewModel)
 }
 
 class GitHubUserListsViewController: UIViewController {
@@ -172,6 +173,11 @@ extension GitHubUserListsViewController: GitHubUserListsDisplayLogic {
 		}
 		loadingIndicatorView.isHidden = !viewModel.isShowLoading
 	}
+	
+	func show(favoriteFilterActive viewModel: SelectedFavoriteFilter.ViewModel) {
+		models?.githubUsersViewModel = viewModel.githubUsersViewModel
+		tableView.reloadData()
+	}
 }
 
 // MARK: - UITableViewDelegate & UITableViewDataSource
@@ -223,6 +229,7 @@ extension GitHubUserListsViewController: IGitHubUserListsCellDelegate {
 extension GitHubUserListsViewController {
 	@objc
 	func refreshData() {
+		searchBarAndFilterView.resetFilter()
 		interactor.getUsers(request: GetGitHubUsers.Request())
 	}
 }
@@ -239,7 +246,7 @@ extension GitHubUserListsViewController: ISearchAndFilterDelegate {
 	}
 	
 	func favoriteFilterDidTapped(isActive: Bool) {
-		
+		interactor.selectedFavoriteFilter(request: SelectedFavoriteFilter.Request(isActive: isActive))
 	}
 	
 	func sortByDidTapped(sortType: SortType) {
