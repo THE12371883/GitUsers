@@ -22,3 +22,23 @@ extension UIImageView {
 		}
 	}
 }
+
+extension NSLayoutConstraint {
+	public static func activate(_ constraints: NSLayoutConstraint...) {
+		constraints.forEach {
+			$0.isActive = true
+		}
+	}
+}
+
+extension UIEdgeInsets {
+	public static func all(_ value: CGFloat) -> UIEdgeInsets {
+		return UIEdgeInsets(top: value, left: value, bottom: value, right: value)
+	}
+}
+
+extension UIView {
+	public class func fromNib<T: UIView>(bundle: Bundle) -> T {
+		return bundle.loadNibNamed(String(describing: self), owner: nil, options: nil)![0] as! T
+	}
+}

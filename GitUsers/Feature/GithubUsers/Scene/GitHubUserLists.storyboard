@@ -33,10 +33,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kzi-CZ-ZUU">
-                                <rect key="frame" x="0.0" y="200" width="414" height="662"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fP6-aA-Nmy">
                                 <rect key="frame" x="0.0" y="140" width="414" height="60"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -44,6 +40,10 @@
                                     <constraint firstAttribute="height" constant="60" id="D4T-Oo-uQh"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kzi-CZ-ZUU">
+                                <rect key="frame" x="0.0" y="200" width="414" height="662"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="exU-WV-gdO">
                                 <rect key="frame" x="188.5" y="482.5" width="37" height="37"/>
                                 <color key="color" red="0.93725490199999995" green="0.25098039220000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -66,6 +66,7 @@
                     <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="o0g-Qg-Fml"/>
                     <connections>
                         <outlet property="loadingIndicatorView" destination="exU-WV-gdO" id="qgk-Ny-e4m"/>
+                        <outlet property="searchBarAndFilterContainerView" destination="fP6-aA-Nmy" id="n8G-ju-Dd7"/>
                         <outlet property="tableView" destination="kzi-CZ-ZUU" id="Dc5-eo-T9H"/>
                     </connections>
                 </viewController>

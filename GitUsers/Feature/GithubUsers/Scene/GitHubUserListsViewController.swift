@@ -35,10 +35,12 @@ class GitHubUserListsViewController: UIViewController {
 	// MARK: - IBOutlets
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var loadingIndicatorView: UIActivityIndicatorView!
-	var refreshControl = UIRefreshControl()
+	@IBOutlet weak var searchBarAndFilterContainerView: UIView!
 	
 	// MARK: - Variable
+	var refreshControl = UIRefreshControl()
 	var models: GetGitHubUsers.ViewModel?
+	var searchBarAndFilterView: SearchAndFilterView!
 	
 	// MARK: - Lifecycle
 	deinit {
@@ -106,6 +108,18 @@ private extension GitHubUserListsViewController {
 	func setupUI() {
 		view.layoutIfNeeded()
 		loadingIndicatorView.hidesWhenStopped = true
+		
+		searchBarAndFilterView = SearchAndFilterView.fromNib(bundle: .main)
+		searchBarAndFilterView.translatesAutoresizingMaskIntoConstraints = false
+		searchBarAndFilterContainerView.addSubview(searchBarAndFilterView)
+		searchBarAndFilterView.delegate = self
+		
+		NSLayoutConstraint.activate(
+			searchBarAndFilterView.topAnchor.constraint(equalTo: searchBarAndFilterContainerView.topAnchor),
+			searchBarAndFilterView.bottomAnchor.constraint(equalTo: searchBarAndFilterContainerView.bottomAnchor),
+			searchBarAndFilterView.leftAnchor.constraint(equalTo: searchBarAndFilterContainerView.leftAnchor),
+			searchBarAndFilterView.rightAnchor.constraint(equalTo: searchBarAndFilterContainerView.rightAnchor)
+		)
 	}
 	
 	func setupTableView() {
@@ -210,5 +224,25 @@ extension GitHubUserListsViewController {
 	@objc
 	func refreshData() {
 		interactor.getUsers(request: GetGitHubUsers.Request())
+	}
+}
+
+// MARK: - ISearchAndFilterDelegate
+
+extension GitHubUserListsViewController: ISearchAndFilterDelegate {
+	func clearSearchTextButtonDidTapped() {
+		
+	}
+	
+	func searchButtonDidTapped(searchText: String) {
+		
+	}
+	
+	func favoriteFilterDidTapped(isActive: Bool) {
+		
+	}
+	
+	func sortByDidTapped(sortType: SortType) {
+		
 	}
 }
