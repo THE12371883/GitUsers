@@ -35,6 +35,7 @@ class GitHubUserDetailViewController: UIViewController {
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var githubUrlLabel: UILabel!
 	@IBOutlet weak var tableView: UITableView!
+	var refreshControl = UIRefreshControl()
 	
 	// MARK: - Variable
 	var models: GetGitHubUserRepos.ViewModel?
@@ -102,9 +103,9 @@ private extension GitHubUserDetailViewController {
 	}
 	
 	func setupTableView() {
-//		refreshControl.addTarget(self, action: #selector(self.refreshData), for: .valueChanged)
-//		tableView.refreshControl = refreshControl
-//		
+		refreshControl.addTarget(self, action: #selector(self.refreshData), for: .valueChanged)
+		tableView.refreshControl = refreshControl
+		
 		tableView.register(UINib(nibName: Constants.cellNibName, bundle: Bundle.main), forCellReuseIdentifier: Constants.cellIdentifier)
 		tableView.delegate = self
 		tableView.dataSource = self
@@ -139,6 +140,7 @@ extension GitHubUserDetailViewController: GitHubUserDetailDisplayLogic {
 	func show(repositories viewModel: GetGitHubUserRepos.ViewModel) {
 		models = viewModel
 		tableView.reloadData()
+		refreshControl.endRefreshing()
 	}
 	
 	func show(error: ErrorViewModel) {
@@ -182,5 +184,14 @@ extension GitHubUserDetailViewController: UITableViewDelegate, UITableViewDataSo
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
+	}
+}
+
+// MARK: - Action
+
+extension GitHubUserDetailViewController {
+	@objc
+	func refreshData() {
+		interactor.getUserRepositories(request: GetGitHubUserRepos.Request())
 	}
 }

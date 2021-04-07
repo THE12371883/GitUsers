@@ -185,7 +185,7 @@ extension GitHubUserListsViewController: UITableViewDelegate, UITableViewDataSou
 	}
 }
 
-// MARK: - Action
+// MARK: - IGitHubUserListsCellDelegate
 
 extension GitHubUserListsViewController: IGitHubUserListsCellDelegate {
 	func didSelectCell(userId: Int, isSelected: Bool, index: Int) {
