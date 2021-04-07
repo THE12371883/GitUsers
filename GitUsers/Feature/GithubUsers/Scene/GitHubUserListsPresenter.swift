@@ -17,6 +17,7 @@ protocol IGitHubUserListsPresenter {
 	func present(setFavorite response: SetFavoriteUser.Response)
 	func present(error: Error)
 	func present(userDetail response: SelectedGitHubUser.Response)
+	func present(loadingView response: ShowLoading.Response)
 }
 
 struct GitHubUserListsPresenter {
@@ -52,5 +53,9 @@ extension GitHubUserListsPresenter: IGitHubUserListsPresenter {
 	
 	func present(userDetail response: SelectedGitHubUser.Response) {
 		viewController?.show(userDetail: SelectedGitHubUser.ViewModel(githubUserModel: response.githubUserModel))
+	}
+	
+	func present(loadingView response: ShowLoading.Response) {
+		viewController?.show(loadingView: ShowLoading.ViewModel(isShowLoading: response.isShowLoading))
 	}
 }

@@ -57,10 +57,15 @@
                                 <rect key="frame" x="0.0" y="179" width="414" height="683"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="ReS-Sg-fY1">
+                                <rect key="frame" x="188.5" y="434.5" width="37" height="37"/>
+                                <color key="color" red="0.93725490199999995" green="0.25098039220000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UfW-rU-8Z9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="ReS-Sg-fY1" firstAttribute="centerX" secondItem="UfW-rU-8Z9" secondAttribute="centerX" id="1XY-ar-tlj"/>
                             <constraint firstItem="02b-mw-CpT" firstAttribute="top" secondItem="CUU-Mw-FCJ" secondAttribute="bottom" id="1ax-PO-saV"/>
                             <constraint firstItem="CUU-Mw-FCJ" firstAttribute="leading" secondItem="UfW-rU-8Z9" secondAttribute="leading" id="7Xm-Eh-Scw"/>
                             <constraint firstItem="CUU-Mw-FCJ" firstAttribute="trailing" secondItem="UfW-rU-8Z9" secondAttribute="trailing" id="AnA-YS-gFa"/>
@@ -68,11 +73,13 @@
                             <constraint firstItem="02b-mw-CpT" firstAttribute="leading" secondItem="UfW-rU-8Z9" secondAttribute="leading" id="O8V-LI-aJY"/>
                             <constraint firstItem="CUU-Mw-FCJ" firstAttribute="top" secondItem="UfW-rU-8Z9" secondAttribute="top" id="PM0-Ad-iap"/>
                             <constraint firstItem="02b-mw-CpT" firstAttribute="trailing" secondItem="UfW-rU-8Z9" secondAttribute="trailing" id="TkB-Te-ubB"/>
+                            <constraint firstItem="ReS-Sg-fY1" firstAttribute="centerY" secondItem="UfW-rU-8Z9" secondAttribute="centerY" id="rnI-dI-QVD"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="githubUrlLabel" destination="gid-Iy-fo0" id="Arv-zh-2Fu"/>
                         <outlet property="imageView" destination="hpG-BF-Ear" id="d9u-Sr-raj"/>
+                        <outlet property="loadingIndicatorView" destination="ReS-Sg-fY1" id="InD-10-Ccb"/>
                         <outlet property="nameLabel" destination="rNH-vB-5Nh" id="g12-qV-EYi"/>
                         <outlet property="tableView" destination="02b-mw-CpT" id="psK-Cb-JrR"/>
                     </connections>

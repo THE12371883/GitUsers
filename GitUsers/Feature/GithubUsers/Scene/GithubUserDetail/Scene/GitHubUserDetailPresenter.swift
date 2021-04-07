@@ -16,6 +16,7 @@ protocol IGitHubUserDetailPresenter {
 	func present(userProfile response: GetUserProfile.Response)
 	func present(repositories response: GetGitHubUserRepos.Response)
 	func present(error: Error)
+	func present(loadingView response: ShowLoadingView.Response)
 }
 
 struct GitHubUserDetailPresenter {
@@ -47,5 +48,9 @@ extension GitHubUserDetailPresenter: IGitHubUserDetailPresenter {
 		} else {
 			viewController?.show(error: ErrorViewModel("Message", message: error.localizedDescription))
 		}
+	}
+	
+	func present(loadingView response: ShowLoadingView.Response) {
+		viewController?.show(loadingView: ShowLoadingView.ViewModel(isShowLoading: response.isShowLoading))
 	}
 }

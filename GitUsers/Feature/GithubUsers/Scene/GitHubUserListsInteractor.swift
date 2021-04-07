@@ -34,6 +34,7 @@ struct GitHubUserListsInteractor {
 
 extension GitHubUserListsInteractor: IGitHubUserListsInteractor {
 	func getUsers(request: GetGitHubUsers.Request) {
+		presenter.present(loadingView: ShowLoading.Response(isShowLoading: true))
 		worker.getGitHubUsers { response in
 			switch response {
 			case .success(let datas):
@@ -41,6 +42,7 @@ extension GitHubUserListsInteractor: IGitHubUserListsInteractor {
 			case .failure(let error):
 				self.presenter.present(error: error)
 			}
+			self.presenter.present(loadingView: ShowLoading.Response(isShowLoading: false))
 		}
 	}
 	

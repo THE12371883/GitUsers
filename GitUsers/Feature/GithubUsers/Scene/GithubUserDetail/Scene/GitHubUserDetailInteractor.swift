@@ -39,6 +39,7 @@ extension GitHubUserDetailInteractor: IGitHubUserDetailInteractor {
 	}
 	
 	func getUserRepositories(request: GetGitHubUserRepos.Request) {
+		presenter.present(loadingView: ShowLoadingView.Response(isShowLoading: true))
 		worker.getUserRepositories { result in
 			switch result {
 			case .success(let response):
@@ -46,6 +47,7 @@ extension GitHubUserDetailInteractor: IGitHubUserDetailInteractor {
 			case .failure(let error):
 				self.presenter.present(error: error)
 			}
+			self.presenter.present(loadingView: ShowLoadingView.Response(isShowLoading: false))
 		}
 	}
 }

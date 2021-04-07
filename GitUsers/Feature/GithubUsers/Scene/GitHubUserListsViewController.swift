@@ -23,6 +23,7 @@ protocol GitHubUserListsDisplayLogic: class {
 	func show(error: ErrorViewModel)
 	func show(setFavorite viewModel: SetFavoriteUser.ViewModel)
 	func show(userDetail viewModel: SelectedGitHubUser.ViewModel)
+	func show(loadingView viewModel: ShowLoading.ViewModel)
 }
 
 class GitHubUserListsViewController: UIViewController {
@@ -33,6 +34,7 @@ class GitHubUserListsViewController: UIViewController {
 	
 	// MARK: - IBOutlets
 	@IBOutlet weak var tableView: UITableView!
+	@IBOutlet weak var loadingIndicatorView: UIActivityIndicatorView!
 	var refreshControl = UIRefreshControl()
 	
 	// MARK: - Variable
@@ -71,7 +73,7 @@ class GitHubUserListsViewController: UIViewController {
 		getGithubUsers()
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.largeTitleDisplayMode = .always
-		navigationItem.title = "GitHubUserLists"
+		navigationItem.title = "Github User"
 		setNeedsStatusBarAppearanceUpdate()
 	}
 	
@@ -103,7 +105,7 @@ private extension GitHubUserListsViewController {
 	
 	func setupUI() {
 		view.layoutIfNeeded()
-		
+		loadingIndicatorView.hidesWhenStopped = true
 	}
 	
 	func setupTableView() {
@@ -146,6 +148,15 @@ extension GitHubUserListsViewController: GitHubUserListsDisplayLogic {
 	
 	func show(userDetail viewModel: SelectedGitHubUser.ViewModel) {
 		router.goToDetail(from: self, gitUserModel: viewModel.githubUserModel)
+	}
+	
+	func show(loadingView viewModel: ShowLoading.ViewModel) {
+		if viewModel.isShowLoading {
+			loadingIndicatorView.startAnimating()
+		} else {
+			loadingIndicatorView.stopAnimating()
+		}
+		loadingIndicatorView.isHidden = !viewModel.isShowLoading
 	}
 }
 

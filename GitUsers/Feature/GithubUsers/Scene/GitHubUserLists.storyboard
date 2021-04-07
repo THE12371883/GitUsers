@@ -44,6 +44,10 @@
                                     <constraint firstAttribute="height" constant="60" id="D4T-Oo-uQh"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="exU-WV-gdO">
+                                <rect key="frame" x="188.5" y="482.5" width="37" height="37"/>
+                                <color key="color" red="0.93725490199999995" green="0.25098039220000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7au-6s-Dyk"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -53,12 +57,15 @@
                             <constraint firstItem="kzi-CZ-ZUU" firstAttribute="trailing" secondItem="7au-6s-Dyk" secondAttribute="trailing" id="P2P-gM-2kc"/>
                             <constraint firstItem="fP6-aA-Nmy" firstAttribute="leading" secondItem="7au-6s-Dyk" secondAttribute="leading" id="X0T-Kj-Ojv"/>
                             <constraint firstItem="fP6-aA-Nmy" firstAttribute="top" secondItem="7au-6s-Dyk" secondAttribute="top" id="X8g-y5-Q2e"/>
+                            <constraint firstItem="exU-WV-gdO" firstAttribute="centerX" secondItem="7au-6s-Dyk" secondAttribute="centerX" id="bQl-sk-JUw"/>
                             <constraint firstItem="kzi-CZ-ZUU" firstAttribute="bottom" secondItem="7au-6s-Dyk" secondAttribute="bottom" id="efj-dJ-8Vs"/>
                             <constraint firstItem="kzi-CZ-ZUU" firstAttribute="top" secondItem="fP6-aA-Nmy" secondAttribute="bottom" id="eyh-Lt-Wr8"/>
+                            <constraint firstItem="exU-WV-gdO" firstAttribute="centerY" secondItem="7au-6s-Dyk" secondAttribute="centerY" id="s4V-h0-OJf"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="o0g-Qg-Fml"/>
                     <connections>
+                        <outlet property="loadingIndicatorView" destination="exU-WV-gdO" id="qgk-Ny-e4m"/>
                         <outlet property="tableView" destination="kzi-CZ-ZUU" id="Dc5-eo-T9H"/>
                     </connections>
                 </viewController>

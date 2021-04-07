@@ -22,6 +22,7 @@ protocol GitHubUserDetailDisplayLogic: class {
 	func show(profile viewModel: GetUserProfile.ViewModel)
 	func show(repositories viewModel: GetGitHubUserRepos.ViewModel)
 	func show(error: ErrorViewModel)
+	func show(loadingView viewModel: ShowLoadingView.ViewModel)
 }
 
 class GitHubUserDetailViewController: UIViewController {
@@ -35,6 +36,7 @@ class GitHubUserDetailViewController: UIViewController {
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var githubUrlLabel: UILabel!
 	@IBOutlet weak var tableView: UITableView!
+	@IBOutlet weak var loadingIndicatorView: UIActivityIndicatorView!
 	var refreshControl = UIRefreshControl()
 	
 	// MARK: - Variable
@@ -99,7 +101,7 @@ private extension GitHubUserDetailViewController {
 	}
 	
 	func setupUI() {
-		
+		loadingIndicatorView.hidesWhenStopped = true
 	}
 	
 	func setupTableView() {
@@ -150,6 +152,15 @@ extension GitHubUserDetailViewController: GitHubUserDetailDisplayLogic {
 		}
 		alert.addAction(alertAction)
 		present(alert, animated: true, completion: nil)
+	}
+	
+	func show(loadingView viewModel: ShowLoadingView.ViewModel) {
+		if viewModel.isShowLoading {
+			loadingIndicatorView.startAnimating()
+		} else {
+			loadingIndicatorView.stopAnimating()
+		}
+		loadingIndicatorView.isHidden = !viewModel.isShowLoading
 	}
 }
 
