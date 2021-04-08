@@ -29,4 +29,12 @@ struct GitHubUserListsModel: IGitHubUserListsModel {
 		self.gitHubUrlString = item.gitHubUrlString
 		self.favoriteStatus = false
 	}
+	
+	init(item: IGithubSearchUserData) {
+		self.id = item.id
+		self.loginName = item.loginName
+		self.avartarUrlString = item.avartarUrlString
+		self.gitHubUrlString = item.gitHubUrlString
+		self.favoriteStatus = false
+	}
 }

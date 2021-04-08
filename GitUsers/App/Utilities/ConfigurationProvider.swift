@@ -7,10 +7,7 @@
 
 import UIKit
 
-protocol IConfigurationProvider {
-	var githubUserURL: String { get }
-	var githubUserRepositoriesURL: String { get }
-}
+protocol IConfigurationProvider: IGitHubConfig { }
 
 enum ConfigurationProvider: IConfigurationProvider {
 	case `default`
@@ -22,6 +19,7 @@ enum ConfigurationProvider: IConfigurationProvider {
 	enum APIPaths {
 		static let githubUser = "/users"
 		static let githubRepositories = "/users/{username}/repos"
+		static let githubSearchUser = "/search/users"
 	}
 	
 	var githubUserURL: String {
@@ -30,5 +28,9 @@ enum ConfigurationProvider: IConfigurationProvider {
 	
 	var githubUserRepositoriesURL: String {
 		return APIUrl.url + APIPaths.githubRepositories
+	}
+	
+	var githubSearchUserURL: String {
+		return APIUrl.url + APIPaths.githubSearchUser
 	}
 }

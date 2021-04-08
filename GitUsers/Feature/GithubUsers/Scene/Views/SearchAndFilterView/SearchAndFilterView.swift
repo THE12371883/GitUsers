@@ -61,6 +61,10 @@ extension SearchAndFilterView {
 		favoriteFilterButton.isSelected = false
 		sortByButton.isSelected = false
 	}
+	
+	func hideKeyboard() {
+		textField.resignFirstResponder()
+	}
 }
 
 // MARK: - Action
@@ -92,7 +96,6 @@ extension SearchAndFilterView {
 
 extension SearchAndFilterView: UITextFieldDelegate {
 	func textFieldShouldClear(_ textField: UITextField) -> Bool {
-		textField.resignFirstResponder()
 		delegate?.clearSearchTextButtonDidTapped()
 		return true
 	}

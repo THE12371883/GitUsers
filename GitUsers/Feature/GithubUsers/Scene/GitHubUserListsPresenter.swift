@@ -20,6 +20,7 @@ protocol IGitHubUserListsPresenter {
 	func present(loadingView response: ShowLoading.Response)
 	func present(favoriteFilter response: SelectedFavoriteFilter.Response)
 	func present(sortData response: SelectedSortData.Response)
+	func present(searchUser response: SearchGithubUser.Response)
 }
 
 struct GitHubUserListsPresenter {
@@ -69,5 +70,10 @@ extension GitHubUserListsPresenter: IGitHubUserListsPresenter {
 	func present(sortData response: SelectedSortData.Response) {
 		let viewModel = response.githubUsersModel.compactMap { GitHubUserListsViewModel(item: $0) }
 		viewController?.show(sortData: SelectedSortData.ViewModel(githubUsersViewModel: viewModel))
+	}
+	
+	func present(searchUser response: SearchGithubUser.Response) {
+		let viewModel = response.githubUsersModel.compactMap { GitHubUserListsViewModel(item: $0) }
+		viewController?.show(searchUser: SearchGithubUser.ViewModel(githubUsersViewModel: viewModel))
 	}
 }

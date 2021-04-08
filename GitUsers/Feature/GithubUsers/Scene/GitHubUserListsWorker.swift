@@ -20,6 +20,7 @@ protocol IGitHubUserListsWorker {
 	func setFavoriteFilter(isActive: Bool, completion: @escaping ([IGitHubUserListsModel]) -> Void)
 	func setSort(sortType: SortType, completion: @escaping ([IGitHubUserListsModel]) -> Void)
 	func sortGitHubUsers(datas: [IGitHubUserListsModel]) -> [IGitHubUserListsModel]
+	func getGitHubSearchUsers(with searchText: String, completion: @escaping (Result<[IGitHubUserListsModel], Error>) -> Void)
 }
 
 class GitHubUserListsWorker {
@@ -104,6 +105,21 @@ extension GitHubUserListsWorker: IGitHubUserListsWorker {
 		case .alphabetDescending:
 			let data = datas.sorted(by: { ($0.loginName ?? "").localizedStandardCompare(($1.loginName ?? "")) == .orderedDescending })
 			return data
+		}
+	}
+	
+	func getGitHubSearchUsers(with searchText: String, completion: @escaping (Result<[IGitHubUserListsModel], Error>) -> Void) {
+		inMemoryStore.sortType = .alphabetAscending
+		inMemoryStore.isFavoriteFilterActive = false
+		githubAPIService.getGitHubSearchUsers(with: ["q": searchText]) { result in
+			switch result {
+			case .success(let datas):
+				self.inMemoryStore.gitHubUserListsModel = datas
+				let models = self.fetchGithubUsersData()
+				completion(.success(models))
+			case .failure(let error):
+				completion(.failure(error))
+			}
 		}
 	}
 }

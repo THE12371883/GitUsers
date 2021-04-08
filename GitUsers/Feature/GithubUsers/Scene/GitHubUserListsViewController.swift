@@ -26,6 +26,7 @@ protocol GitHubUserListsDisplayLogic: class {
 	func show(loadingView viewModel: ShowLoading.ViewModel)
 	func show(favoriteFilterActive viewModel: SelectedFavoriteFilter.ViewModel)
 	func show(sortData viewModel: SelectedSortData.ViewModel)
+	func show(searchUser viewModel: SearchGithubUser.ViewModel)
 }
 
 class GitHubUserListsViewController: UIViewController {
@@ -184,6 +185,11 @@ extension GitHubUserListsViewController: GitHubUserListsDisplayLogic {
 		models?.githubUsersViewModel = viewModel.githubUsersViewModel
 		tableView.reloadData()
 	}
+	
+	func show(searchUser viewModel: SearchGithubUser.ViewModel) {
+		models?.githubUsersViewModel = viewModel.githubUsersViewModel
+		tableView.reloadData()
+	}
 }
 
 // MARK: - UITableViewDelegate & UITableViewDataSource
@@ -244,11 +250,17 @@ extension GitHubUserListsViewController {
 
 extension GitHubUserListsViewController: ISearchAndFilterDelegate {
 	func clearSearchTextButtonDidTapped() {
-		
+		searchBarAndFilterView.resetFilter()
+		DispatchQueue.main.async {
+			self.searchBarAndFilterView.hideKeyboard()
+		}
+		getGithubUsers()
 	}
 	
 	func searchButtonDidTapped(searchText: String) {
-		
+		searchBarAndFilterView.resetFilter()
+		searchBarAndFilterView.hideKeyboard()
+		interactor.searchUser(request: SearchGithubUser.Request(searchText: searchText))
 	}
 	
 	func favoriteFilterDidTapped(isActive: Bool) {

@@ -18,6 +18,7 @@ protocol IGitHubUserListsInteractor {
 	func selectedGithubUser(request: SelectedGitHubUser.Request)
 	func selectedFavoriteFilter(request: SelectedFavoriteFilter.Request)
 	func selectedSort(request: SelectedSortData.Request)
+	func searchUser(request: SearchGithubUser.Request)
 }
 
 struct GitHubUserListsInteractor {
@@ -69,6 +70,19 @@ extension GitHubUserListsInteractor: IGitHubUserListsInteractor {
 	func selectedSort(request: SelectedSortData.Request) {
 		worker.setSort(sortType: request.sortType) { result in
 			self.presenter.present(sortData: SelectedSortData.Response(githubUsersModel: result))
+		}
+	}
+	
+	func searchUser(request: SearchGithubUser.Request) {
+		presenter.present(loadingView: ShowLoading.Response(isShowLoading: true))
+		worker.getGitHubSearchUsers(with: request.searchText) { response in
+			switch response {
+			case .success(let datas):
+				self.presenter.present(searchUser: SearchGithubUser.Response(githubUsersModel: datas))
+			case .failure(let error):
+				self.presenter.present(error: error)
+			}
+			self.presenter.present(loadingView: ShowLoading.Response(isShowLoading: false))
 		}
 	}
 }
