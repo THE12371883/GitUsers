@@ -16,8 +16,8 @@ protocol ISearchAndFilterDelegate: class {
 }
 
 enum SortType {
-	case descending
-	case ascending
+	case alphabetDescending
+	case alphabetAscending
 }
 
 class SearchAndFilterView: UIControl {
@@ -80,10 +80,10 @@ extension SearchAndFilterView {
 	func sortByButtonDidTapped(sender: UIButton) {
 		if sender.isSelected {
 			sender.isSelected = false
-			delegate?.sortByDidTapped(sortType: .descending)
+			delegate?.sortByDidTapped(sortType: .alphabetAscending)
 		} else {
 			sender.isSelected = true
-			delegate?.sortByDidTapped(sortType: .ascending)
+			delegate?.sortByDidTapped(sortType: .alphabetDescending)
 		}
 	}
 }

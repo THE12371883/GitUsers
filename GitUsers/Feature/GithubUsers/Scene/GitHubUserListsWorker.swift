@@ -16,8 +16,10 @@ protocol IGitHubUserListsWorker {
 	func getGitHubUsers(completion: @escaping (Result<[IGitHubUserListsModel], Error>) -> Void)
 	func setFavoriteUser(with id: Int, completion: @escaping () -> Void)
 	func getGithubUserDetail(at index: Int, completion: @escaping (IGitHubUserListsModel) -> Void)
-	func favoriteUserStatus() -> [IGitHubUserListsModel]
+	func fetchGithubUsersData() -> [IGitHubUserListsModel]
 	func setFavoriteFilter(isActive: Bool, completion: @escaping ([IGitHubUserListsModel]) -> Void)
+	func setSort(sortType: SortType, completion: @escaping ([IGitHubUserListsModel]) -> Void)
+	func sortGitHubUsers(datas: [IGitHubUserListsModel]) -> [IGitHubUserListsModel]
 }
 
 class GitHubUserListsWorker {
@@ -38,11 +40,13 @@ class GitHubUserListsWorker {
 
 extension GitHubUserListsWorker: IGitHubUserListsWorker {
 	func getGitHubUsers(completion: @escaping (Result<[IGitHubUserListsModel], Error>) -> Void) {
+		inMemoryStore.sortType = .alphabetAscending
+		inMemoryStore.isFavoriteFilterActive = false
 		githubAPIService.getGitHubUsers { result in
 			switch result {
 			case .success(let datas):
 				self.inMemoryStore.gitHubUserListsModel = datas
-				let models = self.favoriteUserStatus()
+				let models = self.fetchGithubUsersData()
 				completion(.success(models))
 			case .failure(let error):
 				completion(.failure(error))
@@ -56,14 +60,24 @@ extension GitHubUserListsWorker: IGitHubUserListsWorker {
 		}
 	}
 	
-	func favoriteUserStatus() -> [IGitHubUserListsModel] {
+	func fetchGithubUsersData() -> [IGitHubUserListsModel] {
 		for index in 0..<inMemoryStore.gitHubUserListsModel.count {
 			reamlService.queryFavoriteUserWithIdFromRealm(withId: inMemoryStore.gitHubUserListsModel[index].id ?? 0) { result in
 				self.inMemoryStore.gitHubUserListsModel[index].favoriteStatus = result
 			}
 		}
 		
-		return inMemoryStore.gitHubUserListsModel
+		var data = inMemoryStore.gitHubUserListsModel
+		
+		if inMemoryStore.isFavoriteFilterActive {
+			data = inMemoryStore.gitHubUserListsModel.filter { $0.favoriteStatus == inMemoryStore.isFavoriteFilterActive }
+		} else {
+			data = inMemoryStore.gitHubUserListsModel
+		}
+		
+		data = self.sortGitHubUsers(datas: data)
+		
+		return data
 	}
 	
 	func getGithubUserDetail(at index: Int, completion: @escaping (IGitHubUserListsModel) -> Void) {
@@ -71,11 +85,25 @@ extension GitHubUserListsWorker: IGitHubUserListsWorker {
 	}
 	
 	func setFavoriteFilter(isActive: Bool, completion: @escaping ([IGitHubUserListsModel]) -> Void) {
-		if isActive {
-			let data = inMemoryStore.gitHubUserListsModel.filter { $0.favoriteStatus == isActive }
-			completion(data)
-		} else {
-			completion(inMemoryStore.gitHubUserListsModel)
+		inMemoryStore.isFavoriteFilterActive = isActive
+		let data = fetchGithubUsersData()
+		completion(data)
+	}
+	
+	func setSort(sortType: SortType, completion: @escaping ([IGitHubUserListsModel]) -> Void) {
+		inMemoryStore.sortType = sortType
+		let data = fetchGithubUsersData()
+		completion(data)
+	}
+	
+	func sortGitHubUsers(datas: [IGitHubUserListsModel]) -> [IGitHubUserListsModel] {
+		switch inMemoryStore.sortType {
+		case .alphabetAscending:
+			let data = datas.sorted(by: { ($0.loginName ?? "").localizedStandardCompare(($1.loginName ?? "")) == .orderedAscending })
+			return data
+		case .alphabetDescending:
+			let data = datas.sorted(by: { ($0.loginName ?? "").localizedStandardCompare(($1.loginName ?? "")) == .orderedDescending })
+			return data
 		}
 	}
 }

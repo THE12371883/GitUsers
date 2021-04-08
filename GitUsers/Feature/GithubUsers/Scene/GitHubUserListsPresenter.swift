@@ -19,6 +19,7 @@ protocol IGitHubUserListsPresenter {
 	func present(userDetail response: SelectedGitHubUser.Response)
 	func present(loadingView response: ShowLoading.Response)
 	func present(favoriteFilter response: SelectedFavoriteFilter.Response)
+	func present(sortData response: SelectedSortData.Response)
 }
 
 struct GitHubUserListsPresenter {
@@ -63,5 +64,10 @@ extension GitHubUserListsPresenter: IGitHubUserListsPresenter {
 	func present(favoriteFilter response: SelectedFavoriteFilter.Response) {
 		let viewModel = response.githubUsersModel.compactMap { GitHubUserListsViewModel(item: $0) }
 		viewController?.show(users: GetGitHubUsers.ViewModel(githubUsersViewModel: viewModel))
+	}
+	
+	func present(sortData response: SelectedSortData.Response) {
+		let viewModel = response.githubUsersModel.compactMap { GitHubUserListsViewModel(item: $0) }
+		viewController?.show(sortData: SelectedSortData.ViewModel(githubUsersViewModel: viewModel))
 	}
 }

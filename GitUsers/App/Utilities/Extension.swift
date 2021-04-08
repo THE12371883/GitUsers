@@ -37,8 +37,14 @@ extension UIEdgeInsets {
 	}
 }
 
+// swiftlint:disable force_cast
+// swiftlint:disable force_unwrapping
+
 extension UIView {
 	public class func fromNib<T: UIView>(bundle: Bundle) -> T {
 		return bundle.loadNibNamed(String(describing: self), owner: nil, options: nil)![0] as! T
 	}
 }
+
+// swiftlint:enable force_cast
+// swiftlint:enable force_unwrapping

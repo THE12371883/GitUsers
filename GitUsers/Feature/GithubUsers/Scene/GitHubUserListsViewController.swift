@@ -25,6 +25,7 @@ protocol GitHubUserListsDisplayLogic: class {
 	func show(userDetail viewModel: SelectedGitHubUser.ViewModel)
 	func show(loadingView viewModel: ShowLoading.ViewModel)
 	func show(favoriteFilterActive viewModel: SelectedFavoriteFilter.ViewModel)
+	func show(sortData viewModel: SelectedSortData.ViewModel)
 }
 
 class GitHubUserListsViewController: UIViewController {
@@ -178,6 +179,11 @@ extension GitHubUserListsViewController: GitHubUserListsDisplayLogic {
 		models?.githubUsersViewModel = viewModel.githubUsersViewModel
 		tableView.reloadData()
 	}
+	
+	func show(sortData viewModel: SelectedSortData.ViewModel) {
+		models?.githubUsersViewModel = viewModel.githubUsersViewModel
+		tableView.reloadData()
+	}
 }
 
 // MARK: - UITableViewDelegate & UITableViewDataSource
@@ -250,6 +256,6 @@ extension GitHubUserListsViewController: ISearchAndFilterDelegate {
 	}
 	
 	func sortByDidTapped(sortType: SortType) {
-		
+		interactor.selectedSort(request: SelectedSortData.Request(sortType: sortType))
 	}
 }

@@ -9,8 +9,12 @@ import UIKit
 
 protocol IGitHubUserListsInMemoryStore {
 	var gitHubUserListsModel: [IGitHubUserListsModel] { get set }
+	var sortType: SortType { get set }
+	var isFavoriteFilterActive: Bool { get set }
 }
 
 class GitHubUserListsInMemoryStore: IGitHubUserListsInMemoryStore {
 	var gitHubUserListsModel: [IGitHubUserListsModel] = []
+	var sortType: SortType = .alphabetAscending
+	var isFavoriteFilterActive: Bool = false
 }
