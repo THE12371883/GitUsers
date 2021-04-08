@@ -15,7 +15,7 @@ def utilities
 end
 
 def ui
-	pod 'Kingfisher', '~> 6.0.0'
+	pod 'Kingfisher', '~> 6.1.0'
 end
 
 def xctools

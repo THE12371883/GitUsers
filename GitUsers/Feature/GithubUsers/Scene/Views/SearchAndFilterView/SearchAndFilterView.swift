@@ -7,6 +7,12 @@
 
 import UIKit
 
+private enum Constants {
+	static let sortByImageDefault = "sort_disable"
+	static let sortByImageAscending = "sort_ascending"
+	static let sortByImageDescending = "sort_descending"
+}
+
 protocol ISearchAndFilterDelegate: class {
 	func clearSearchTextButtonDidTapped()
 	func searchButtonDidTapped(searchText: String)
@@ -16,6 +22,7 @@ protocol ISearchAndFilterDelegate: class {
 }
 
 enum SortType {
+	case `default`
 	case alphabetDescending
 	case alphabetAscending
 }
@@ -27,6 +34,12 @@ class SearchAndFilterView: UIControl {
 	@IBOutlet weak var sortByButton: UIButton!
 	
 	weak var delegate: ISearchAndFilterDelegate?
+	
+	var sortType: SortType = .default {
+		didSet {
+			updateFilterButton()
+		}
+	}
 	
 	deinit {
 		print("SearchAndFilterView")
@@ -60,10 +73,22 @@ extension SearchAndFilterView {
 	func resetFilter() {
 		favoriteFilterButton.isSelected = false
 		sortByButton.isSelected = false
+		sortType = .default
 	}
 	
 	func hideKeyboard() {
 		textField.resignFirstResponder()
+	}
+	
+	func updateFilterButton() {
+		switch sortType {
+		case .default:
+			sortByButton.setImage(UIImage(named: Constants.sortByImageDefault), for: .normal)
+		case .alphabetAscending:
+			sortByButton.setImage(UIImage(named: Constants.sortByImageAscending), for: .normal)
+		case .alphabetDescending:
+			sortByButton.setImage(UIImage(named: Constants.sortByImageDescending), for: .normal)
+		}
 	}
 }
 
@@ -82,12 +107,13 @@ extension SearchAndFilterView {
 	
 	@objc
 	func sortByButtonDidTapped(sender: UIButton) {
-		if sender.isSelected {
-			sender.isSelected = false
+		switch sortType {
+		case .default:
 			delegate?.sortByDidTapped(sortType: .alphabetAscending)
-		} else {
-			sender.isSelected = true
+		case .alphabetAscending:
 			delegate?.sortByDidTapped(sortType: .alphabetDescending)
+		case .alphabetDescending:
+			delegate?.sortByDidTapped(sortType: .default)
 		}
 	}
 }

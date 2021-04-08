@@ -15,6 +15,6 @@ protocol IGitHubUserListsInMemoryStore {
 
 class GitHubUserListsInMemoryStore: IGitHubUserListsInMemoryStore {
 	var gitHubUserListsModel: [IGitHubUserListsModel] = []
-	var sortType: SortType = .alphabetAscending
+	var sortType: SortType = .default
 	var isFavoriteFilterActive: Bool = false
 }

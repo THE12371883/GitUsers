@@ -260,7 +260,11 @@ extension GitHubUserListsViewController: ISearchAndFilterDelegate {
 	func searchButtonDidTapped(searchText: String) {
 		searchBarAndFilterView.resetFilter()
 		searchBarAndFilterView.hideKeyboard()
-		interactor.searchUser(request: SearchGithubUser.Request(searchText: searchText))
+		if searchText.isEmpty {
+			getGithubUsers()
+		} else {
+			interactor.searchUser(request: SearchGithubUser.Request(searchText: searchText))
+		}
 	}
 	
 	func favoriteFilterDidTapped(isActive: Bool) {
@@ -268,6 +272,7 @@ extension GitHubUserListsViewController: ISearchAndFilterDelegate {
 	}
 	
 	func sortByDidTapped(sortType: SortType) {
+		searchBarAndFilterView.sortType = sortType
 		interactor.selectedSort(request: SelectedSortData.Request(sortType: sortType))
 	}
 }

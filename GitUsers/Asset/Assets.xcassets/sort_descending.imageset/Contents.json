@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "sort_decending.png",
+      "filename" : "sort_ascending.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "sort_decending@2x.png",
+      "filename" : "sort_ascending@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "sort_decending@3x.png",
+      "filename" : "sort_ascending@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

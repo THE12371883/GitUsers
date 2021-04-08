@@ -41,7 +41,7 @@ class GitHubUserListsWorker {
 
 extension GitHubUserListsWorker: IGitHubUserListsWorker {
 	func getGitHubUsers(completion: @escaping (Result<[IGitHubUserListsModel], Error>) -> Void) {
-		inMemoryStore.sortType = .alphabetAscending
+		inMemoryStore.sortType = .default
 		inMemoryStore.isFavoriteFilterActive = false
 		githubAPIService.getGitHubUsers { result in
 			switch result {
@@ -82,7 +82,8 @@ extension GitHubUserListsWorker: IGitHubUserListsWorker {
 	}
 	
 	func getGithubUserDetail(at index: Int, completion: @escaping (IGitHubUserListsModel) -> Void) {
-		completion(inMemoryStore.gitHubUserListsModel[index])
+		let gitHubUserListsModel = self.fetchGithubUsersData()
+		completion(gitHubUserListsModel[index])
 	}
 	
 	func setFavoriteFilter(isActive: Bool, completion: @escaping ([IGitHubUserListsModel]) -> Void) {
@@ -98,6 +99,7 @@ extension GitHubUserListsWorker: IGitHubUserListsWorker {
 	}
 	
 	func sortGitHubUsers(datas: [IGitHubUserListsModel]) -> [IGitHubUserListsModel] {
+		
 		switch inMemoryStore.sortType {
 		case .alphabetAscending:
 			let data = datas.sorted(by: { ($0.loginName ?? "").localizedStandardCompare(($1.loginName ?? "")) == .orderedAscending })
@@ -105,11 +107,14 @@ extension GitHubUserListsWorker: IGitHubUserListsWorker {
 		case .alphabetDescending:
 			let data = datas.sorted(by: { ($0.loginName ?? "").localizedStandardCompare(($1.loginName ?? "")) == .orderedDescending })
 			return data
+		case .default:
+			let data = datas
+			return data
 		}
 	}
 	
 	func getGitHubSearchUsers(with searchText: String, completion: @escaping (Result<[IGitHubUserListsModel], Error>) -> Void) {
-		inMemoryStore.sortType = .alphabetAscending
+		inMemoryStore.sortType = .default
 		inMemoryStore.isFavoriteFilterActive = false
 		githubAPIService.getGitHubSearchUsers(with: ["q": searchText]) { result in
 			switch result {
