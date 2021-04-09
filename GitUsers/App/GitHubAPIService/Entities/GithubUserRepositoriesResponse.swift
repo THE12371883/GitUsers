@@ -9,6 +9,7 @@ import UIKit
 import SwiftyJSON
 
 private enum Constants {
+	static let dateFormatLocaleEN = "en_US_POSIX"
 	static let dateFormatter = "yyyy-MM-dd'T'HH:mm:ssZ"
 }
 
@@ -42,7 +43,14 @@ extension GithubUserRepositoriesDatas {
 // MARK: - Private GithubUserRepositoriesDatas
 private extension GithubUserRepositoriesDatas {
 	func date(from dateString: String) -> Date? {
+		
+		let calendarIdentifier: Calendar.Identifier = .gregorian
+		let locale = Constants.dateFormatLocaleEN
+		let calendar = Calendar(identifier: calendarIdentifier)
+		
 		let dateFormatter = DateFormatter()
+		dateFormatter.locale = Locale(identifier: locale)
+		dateFormatter.calendar = calendar
 		dateFormatter.dateFormat = Constants.dateFormatter
 		let date = dateFormatter.date(from: dateString)
 		return date
