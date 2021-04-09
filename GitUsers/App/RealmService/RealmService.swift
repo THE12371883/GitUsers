@@ -11,7 +11,7 @@ import SwiftyJSON
 
 protocol IRealmService {
 	func initailizeRealm()
-	func insertFavoriteUserToRealm(withId id: Int, completion: @escaping () -> Void)
+	func insertFavoriteUserToRealm(withId id: Int, completion: @escaping (Bool) -> Void)
 	func queryFavoriteUserWithIdFromRealm(withId id: Int, completion: @escaping (Bool) -> Void)
 }
 
@@ -31,7 +31,7 @@ extension RealmService: IRealmService {
 		Realm.Configuration.defaultConfiguration = config
 	}
 	
-	func insertFavoriteUserToRealm(withId id: Int, completion: @escaping () -> Void) {
+	func insertFavoriteUserToRealm(withId id: Int, completion: @escaping (Bool) -> Void) {
 		let realm = try? Realm()
 		
 		let predicate = NSPredicate(format: "id = %d", id)
@@ -42,7 +42,7 @@ extension RealmService: IRealmService {
 			realm?.delete(result)
 			
 			try? realm?.commitWrite()
-			completion()
+			completion(true)
 		} else {
 			realm?.beginWrite()
 			
@@ -51,7 +51,7 @@ extension RealmService: IRealmService {
 				
 			realm?.add(favoriteIdInsert)
 			try? realm?.commitWrite()
-			completion()
+			completion(true)
 		}
 	}
 	

@@ -135,10 +135,6 @@ private extension GitHubUserListsViewController {
 		tableView.tableFooterView = UIView()
 		tableView.layoutIfNeeded()
 	}
-	
-	func getGithubUsers() {
-		interactor.getUsers(request: GetGitHubUsers.Request())
-	}
 }
 
 // MARK: - GitHubUserListsDisplayLogic
@@ -151,6 +147,7 @@ extension GitHubUserListsViewController: GitHubUserListsDisplayLogic {
 	}
 	
 	func show(error: ErrorViewModel) {
+		refreshControl.endRefreshing()
 		let alert = UIAlertController(title: error.title, message: error.message, preferredStyle: .alert)
 		let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
 			alert.dismiss(animated: true, completion: nil)
@@ -189,6 +186,10 @@ extension GitHubUserListsViewController: GitHubUserListsDisplayLogic {
 	func show(searchUser viewModel: SearchGithubUser.ViewModel) {
 		models?.githubUsersViewModel = viewModel.githubUsersViewModel
 		tableView.reloadData()
+	}
+	
+	func getGithubUsers() {
+		interactor.getUsers(request: GetGitHubUsers.Request())
 	}
 }
 

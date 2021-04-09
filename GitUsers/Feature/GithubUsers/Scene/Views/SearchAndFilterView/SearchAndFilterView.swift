@@ -77,7 +77,7 @@ extension SearchAndFilterView {
 	}
 	
 	func hideKeyboard() {
-		textField.resignFirstResponder()
+		textField?.resignFirstResponder()
 	}
 	
 	func updateFilterButton() {

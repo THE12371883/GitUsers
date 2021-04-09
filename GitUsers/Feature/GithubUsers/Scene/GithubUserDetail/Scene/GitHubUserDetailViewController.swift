@@ -115,14 +115,6 @@ private extension GitHubUserDetailViewController {
 		tableView.tableFooterView = UIView()
 		tableView.layoutIfNeeded()
 	}
-	
-	func getUserProfile() {
-		interactor.getUserProfile(request: GetUserProfile.Request())
-	}
-	
-	func getUserRepositories() {
-		interactor.getUserRepositories(request: GetGitHubUserRepos.Request())
-	}
 }
 
 // MARK: - GitHubUserDetailDisplayLogic
@@ -161,6 +153,14 @@ extension GitHubUserDetailViewController: GitHubUserDetailDisplayLogic {
 			loadingIndicatorView.stopAnimating()
 		}
 		loadingIndicatorView.isHidden = !viewModel.isShowLoading
+	}
+	
+	func getUserProfile() {
+		interactor.getUserProfile(request: GetUserProfile.Request())
+	}
+	
+	func getUserRepositories() {
+		interactor.getUserRepositories(request: GetGitHubUserRepos.Request())
 	}
 }
 

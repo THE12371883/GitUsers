@@ -50,7 +50,7 @@ extension GitHubUserListsInteractor: IGitHubUserListsInteractor {
 	}
 	
 	func setFavoriteUser(request: SetFavoriteUser.Request) {
-		worker.setFavoriteUser(with: request.id) {
+		worker.setFavoriteUser(with: request.id) { _ in
 			self.presenter.present(setFavorite: SetFavoriteUser.Response(index: request.index, isFavorite: request.isFavorite))
 		}
 	}

@@ -21,7 +21,10 @@ struct GithubRepositoriesModel: IGithubRepositoriesModel {
 	var reposStarCount: Int?
 	var reposForkCount: Int?
 	var reposLastUpdated: Date?
-	
+}
+
+// MARK: - GithubRepositoriesModel
+extension GithubRepositoriesModel {
 	init(item: IGithubUserRepositoriesDatas) {
 		self.reposName = item.reposName
 		self.reposDescription = item.reposDescription

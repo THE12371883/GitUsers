@@ -51,7 +51,6 @@ extension GitHubUserListsPresenter: IGitHubUserListsPresenter {
 		} else {
 			viewController?.show(error: ErrorViewModel("Message", message: error.localizedDescription))
 		}
-		
 	}
 	
 	func present(userDetail response: SelectedGitHubUser.Response) {
@@ -64,7 +63,7 @@ extension GitHubUserListsPresenter: IGitHubUserListsPresenter {
 	
 	func present(favoriteFilter response: SelectedFavoriteFilter.Response) {
 		let viewModel = response.githubUsersModel.compactMap { GitHubUserListsViewModel(item: $0) }
-		viewController?.show(users: GetGitHubUsers.ViewModel(githubUsersViewModel: viewModel))
+		viewController?.show(favoriteFilterActive: SelectedFavoriteFilter.ViewModel(githubUsersViewModel: viewModel))
 	}
 	
 	func present(sortData response: SelectedSortData.Response) {

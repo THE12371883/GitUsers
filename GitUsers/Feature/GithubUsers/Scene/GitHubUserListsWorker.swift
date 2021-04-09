@@ -14,7 +14,7 @@ import UIKit
 
 protocol IGitHubUserListsWorker {
 	func getGitHubUsers(completion: @escaping (Result<[IGitHubUserListsModel], Error>) -> Void)
-	func setFavoriteUser(with id: Int, completion: @escaping () -> Void)
+	func setFavoriteUser(with id: Int, completion: @escaping (Bool) -> Void)
 	func getGithubUserDetail(at index: Int, completion: @escaping (IGitHubUserListsModel) -> Void)
 	func fetchGithubUsersData() -> [IGitHubUserListsModel]
 	func setFavoriteFilter(isActive: Bool, completion: @escaping ([IGitHubUserListsModel]) -> Void)
@@ -47,6 +47,11 @@ extension GitHubUserListsWorker: IGitHubUserListsWorker {
 			switch result {
 			case .success(let datas):
 				self.inMemoryStore.gitHubUserListsModel = datas
+				for index in 0..<self.inMemoryStore.gitHubUserListsModel.count {
+					self.reamlService.queryFavoriteUserWithIdFromRealm(withId: self.inMemoryStore.gitHubUserListsModel[index].id ?? 0) { result in
+						self.inMemoryStore.gitHubUserListsModel[index].favoriteStatus = result
+					}
+				}
 				let models = self.fetchGithubUsersData()
 				completion(.success(models))
 			case .failure(let error):
@@ -55,18 +60,13 @@ extension GitHubUserListsWorker: IGitHubUserListsWorker {
 		}
 	}
 	
-	func setFavoriteUser(with id: Int, completion: @escaping () -> Void) {
-		reamlService.insertFavoriteUserToRealm(withId: id) {
-			completion()
+	func setFavoriteUser(with id: Int, completion: @escaping (Bool) -> Void) {
+		reamlService.insertFavoriteUserToRealm(withId: id) { result in
+			completion(result)
 		}
 	}
 	
 	func fetchGithubUsersData() -> [IGitHubUserListsModel] {
-		for index in 0..<inMemoryStore.gitHubUserListsModel.count {
-			reamlService.queryFavoriteUserWithIdFromRealm(withId: inMemoryStore.gitHubUserListsModel[index].id ?? 0) { result in
-				self.inMemoryStore.gitHubUserListsModel[index].favoriteStatus = result
-			}
-		}
 		
 		var data = inMemoryStore.gitHubUserListsModel
 		

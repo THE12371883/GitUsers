@@ -21,7 +21,10 @@ struct GitHubUserListsModel: IGitHubUserListsModel {
 	var avartarUrlString: String?
 	var gitHubUrlString: String?
 	var favoriteStatus: Bool?
-	
+}
+
+// MARK: - GitHubUserListsModel
+extension GitHubUserListsModel {
 	init(item: IGithubUserDatas) {
 		self.id = item.id
 		self.loginName = item.loginName
